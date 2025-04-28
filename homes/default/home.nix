@@ -14,9 +14,14 @@ in
 
   home.packages = common.withDefaultPackages { inherit pkgs; } (
     with pkgs; [
-      neovim
+
     ]
   );
+
+
+  programs.neovim = {
+    enable = true;
+  }
 
   # === Environment ===
 
