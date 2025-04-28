@@ -21,7 +21,7 @@ in
 
   programs.neovim = {
     enable = true;
-  }
+  };
 
   # === Environment ===
 
