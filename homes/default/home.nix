@@ -21,8 +21,8 @@ in
 
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
     enableCompletion = true;
+    autosuggestions.enable = true;
   };
 
   programs.neovim = {
