@@ -9,7 +9,7 @@ in
 {
   # === Environment ===
 
-  home.packages = common.withDefaultPackages { inherit pkgs; } (
+  home.packages = (common.withDefaultPackages { inherit pkgs; }) (
     with pkgs [
       neovim
     ];
