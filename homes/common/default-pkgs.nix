@@ -2,7 +2,7 @@
   pkgs,
 }:
 
-packagesList: packagesList ++ (with pkgs [
+packagesList: packagesList ++ (with pkgs; [
   # Version control
   git
 
