@@ -1,5 +1,8 @@
 {
   pkgs,
+
+  # extraSpecialArgs
+  username,
   ...
 } @ args:
 
@@ -21,8 +24,8 @@ in
 
   # === HomeManager ===
 
-  home.username = builtins.getEnv "USER";
-  home.homeDirectory = "/home/${builtins.getEnv "USER"}";
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
   home.stateVersion = "24.11";
 
   # === HomeManager ===

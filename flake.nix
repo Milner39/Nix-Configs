@@ -12,24 +12,27 @@
     nixpkgs,
     home-manager,
     ...
-  } @ inputs: let
+  } @ inputs: {
+  
+    homeConfigurations = {
+      default = let
+        username = "FinnM";
 
-    # Declare system architecture
-    system = "x86_64-linux";
+        system = "x86_64-linux";
+        pkgs = nixpkgs.legacyPackages.${system};
 
-    # Import packages
-    pkgs = nixpkgs.legacyPackages.${system};
+        extraSpecialArgs = { inherit
+          username
+          inputs;
+        };
 
-    # Additional HomeManager inputs
-    extraSpecialArgs = { inherit inputs; };
+      in home-manager.lib.homeManagerConfiguration {
+        inherit pkgs extraSpecialArgs;
 
-  in {
-    homeConfigurations.default = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs extraSpecialArgs;
-
-      modules = [
-        ./homes/default/home.nix
-      ];
+        modules = [
+          ./homes/default/home.nix
+        ];
+      };
     };
   };
 }
