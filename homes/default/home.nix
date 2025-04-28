@@ -12,7 +12,7 @@ in
   home.packages = common.withDefaultPackages { inherit pkgs; } (
     with pkgs; [
       neovim
-    ];
+    ]
   );
 
   # === Environment ===
