@@ -21,6 +21,8 @@ in
 
   # === HomeManager ===
 
+  home.username = builtins.getEnv "USER";
+  home.homeDirectory = "/home/${builtins.getEnv "USER"}";
   home.stateVersion = "24.11";
 
   # === HomeManager ===
