@@ -18,10 +18,9 @@ in
     ]
   );
 
-
+  home.shell = pkgs.zsh;
   programs.zsh = {
     enable = true;
-    loginShell = true;
     enableAutosuggestions = true;
     enableCompletion = true;
   };
