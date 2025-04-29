@@ -6,17 +6,19 @@
   ...
 } @ args:
 
-let
-  common = import ../common;
-in
 {
+  imports = [
+    (import ../common/optional/default-pkgs.nix args)
+    (import ../common/optional/yubikey.nix args)
+  ];
+
+
+
   # === Environment ===
 
-  home.packages = common.withDefaultPackages { inherit pkgs; } (
-    with pkgs; [
+  home.packages = with pkgs; [
 
-    ]
-  );
+  ];
 
 
   programs.zsh = {
