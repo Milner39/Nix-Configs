@@ -25,7 +25,6 @@
           username
           inputs;
         };
-
       in home-manager.lib.homeManagerConfiguration {
         inherit pkgs extraSpecialArgs;
 
