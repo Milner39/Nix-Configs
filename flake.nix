@@ -20,8 +20,9 @@
     ...
   } @ inputs: let
 
-    # Extend lib with lib.custom
+    # Extend lib with Home Manager & lib.custom
     lib = nixpkgs.lib.extend (self: super: {
+      hm = home-manager.lib.hm;
       custom = {};  # import ./lib { inherit (nixpkgs) lib; };
     });
 
