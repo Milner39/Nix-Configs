@@ -48,12 +48,12 @@
         };
 
       in home-manager.lib.homeManagerConfiguration {
-        inherit system pkgs extraSpecialArgs;
+        inherit pkgs extraSpecialArgs;
 
         modules = [
           {
             home = {
-              username = username;
+              inherit username;
               homeDirectory = "/home/${username}";
             };
           }
