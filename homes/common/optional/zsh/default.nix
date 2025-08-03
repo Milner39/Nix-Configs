@@ -8,7 +8,4 @@
   programs.zsh = {
     enable = true;
   };
-
-  # Set $SHELL to Z-Shell
-  home.shell = pkgs.zsh;
 }
