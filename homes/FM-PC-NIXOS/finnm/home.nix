@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
 
   # extraSpecialArgs
@@ -12,6 +13,10 @@ let
   args = baseArgs; # // {};
 in
 {
+  imports = [
+    # Add modules
+    (import (lib.custom.fromRoot "homes/common/optional/zsh") args)
+  ];
 
   # === Home Manager ===
 
