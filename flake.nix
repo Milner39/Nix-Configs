@@ -23,7 +23,7 @@
     # Extend lib with Home Manager & lib.custom
     lib = nixpkgs.lib.extend (self: super: {
       hm = home-manager.lib.hm;
-      custom = {};  # import ./lib { inherit (nixpkgs) lib; };
+      custom = import ./lib { inherit (nixpkgs) lib; };
     });
 
     baseSpecialArgs = { inherit
