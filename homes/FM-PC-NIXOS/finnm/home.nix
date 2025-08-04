@@ -16,6 +16,7 @@ in
   imports = [
     # Add modules
     (import (lib.custom.fromRoot "homes/common/optional/zsh") args)
+    (import (lib.custom.fromRoot "homes/common/optional/ghostty") args)
   ];
 
   # === Home Manager ===
@@ -58,7 +59,7 @@ in
 
   # Programs
   programs = {
-
+    bash.enable = true;
   };
 
   # Variables
