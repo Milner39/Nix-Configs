@@ -13,5 +13,7 @@
     (pkgs.writeShellScriptBin "ssh-bw" (builtins.readFile ./ssh-bw.sh))
   ];
 
-  # TODO: Conditionally set git config sshCommand
+  # TODO: Conditionally set git config `sshCommand` to use Bitwarden SSH
+  # So far: just do it without checking if the user wants to
+  programs.git.extraConfig.core.sshCommand = "ssh-bw";
 }
