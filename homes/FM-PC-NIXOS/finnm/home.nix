@@ -15,9 +15,10 @@ in
 {
   imports = [
     # Add modules
+    (import (lib.custom.fromRoot "homes/common/optional/bitwarden") args)
+    (import (lib.custom.fromRoot "homes/common/optional/ghostty") args)
     (import (lib.custom.fromRoot "homes/common/optional/git") args)
     (import (lib.custom.fromRoot "homes/common/optional/zsh") args)
-    (import (lib.custom.fromRoot "homes/common/optional/ghostty") args)
   ];
 
   # === Home Manager ===
@@ -40,22 +41,11 @@ in
 
   # Packages
   home.packages = with pkgs; [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # hello
-
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
     # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
   ];
 
   # Programs
