@@ -15,6 +15,8 @@ in
 {
   imports = [
     # Add modules
+    (import (lib.custom.fromRoot "modules") args)
+
     (import (lib.custom.fromRoot "homes/common/optional/bitwarden") args)
     (import (lib.custom.fromRoot "homes/common/optional/ghostty") args)
     (import (lib.custom.fromRoot "homes/common/optional/git") args)
@@ -46,14 +48,6 @@ in
 
   ];
 
-  fonts.packages = [
-    # Install all fonts from NerdFonts
-    (builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts))
-
-    # Install specific fonts from NerdFonts
-    # nerd-fonts.jetbrains-mono
-  ];
-
   # Programs
   programs = {
     bash.enable = true;
@@ -78,6 +72,8 @@ in
     #  /etc/profiles/per-user/finnm/etc/profile.d/hm-session-vars.sh
 
   };
+
+  modules.fonts.nerd-fonts.all = true;
 
   # === User Environment ===
 
