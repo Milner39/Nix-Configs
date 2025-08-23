@@ -73,7 +73,12 @@ in
 
   };
 
-  modules.fonts.nerd-fonts.all = true;
+  modules.fonts.nerd-fonts = {
+    # all = true;  # For all NerdFonts
+    fonts = nf: with nf; [
+      jetbrains-mono
+    ];
+  };
 
   # === User Environment ===
 

@@ -20,9 +20,14 @@ in
     };
 
     "fonts" = lib.mkOption {
-      description = "Specific fonts to install from NerdFonts.";
-      default = [];
-      # type = lib.types.;
+      description = ''
+        Specific fonts to install from NerdFonts.
+
+        This should be a function that takes `pkgs.nerd-fonts` as an argument, 
+        and returns a list of packages from the package set.
+      '';
+      default = (_: []);
+      type = lib.types.functionTo (lib.types.listOf lib.types.package);
     };
   };
   # === Options ===
@@ -30,16 +35,14 @@ in
 
   # === Config ===
   config = {
-
-    # Install all fonts from NerdFonts
-    home.packages = lib.mkIf cfg.all (
-      builtins.filter
+    home.packages = (if cfg.all
+      then builtins.filter (
         (lib.attrsets.isDerivation)
         (builtins.attrValues pkgs.nerd-fonts)
-    );
+      )
 
+      else (cfg.fonts pkgs.nerd-fonts)
+    );
   };
   # === Config ===
 }
-
-# TODO: allow option for declaring specific fonts from NerdFonts to install
