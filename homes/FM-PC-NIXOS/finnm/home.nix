@@ -43,6 +43,10 @@ in
 
   # Packages
   home.packages = with pkgs; [
+
+  ];
+
+  fonts.packages = [
     # Install all fonts from NerdFonts
     (builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts))
 
