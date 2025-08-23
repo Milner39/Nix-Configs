@@ -21,6 +21,8 @@ in
     (import (lib.custom.fromRoot "homes/common/optional/zsh") args)
   ];
 
+
+
   # === Home Manager ===
 
   # Let Home Manager install and manage itself.
@@ -41,13 +43,11 @@ in
 
   # Packages
   home.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+    # Install specific fonts from NerdFonts
+    (nerdfonts.override { fonts = [
+      # https://github.com/NixOS/nixpkgs/blob/master/pkgs/data/fonts/nerd-fonts/manifests/fonts.json
+      "JetBrainsMono"
+    ]; })
   ];
 
   # Programs
@@ -73,7 +73,6 @@ in
     #
     #  /etc/profiles/per-user/finnm/etc/profile.d/hm-session-vars.sh
 
-    # EDITOR = "emacs";
   };
 
   # === User Environment ===
@@ -82,19 +81,6 @@ in
   # === Dotfiles ===
 
   home.file = {
-    # Home Manager is pretty good at managing dotfiles. The primary way to manage
-    # plain files is through 'home.file'.
-
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
   };
 
   # === Dotfiles ===
