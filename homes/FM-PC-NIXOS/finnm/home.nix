@@ -43,11 +43,11 @@ in
 
   # Packages
   home.packages = with pkgs; [
+    # Install all fonts from NerdFonts
+    (builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts))
+
     # Install specific fonts from NerdFonts
-    (nerdfonts.override { fonts = [
-      # https://github.com/NixOS/nixpkgs/blob/master/pkgs/data/fonts/nerd-fonts/manifests/fonts.json
-      "JetBrainsMono"
-    ]; })
+    # nerd-fonts.jetbrains-mono
   ];
 
   # Programs
