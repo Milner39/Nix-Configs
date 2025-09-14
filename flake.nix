@@ -33,9 +33,9 @@
 
   in {
     homeConfigurations = {
-      # === finnm@FM-PC-NIXOS ===
+      # === finnm@hd-nix-fm ===
 
-      "finnm@FM-PC-NIXOS" = let
+      "finnm@hd-nix-fm" = let
         username = "finnm";
 
         system = "x86_64-linux";
@@ -59,11 +59,11 @@
             };
           }
 
-          ./homes/FM-PC-NIXOS/finnm/home.nix
+          ./homes/hd-nix-fm/finnm/home.nix
         ];
       };
 
-      # === finnm@FM-PC-NIXOS ===
+      # === finnm@hd-nix-fm ===
     };
   };
 }
