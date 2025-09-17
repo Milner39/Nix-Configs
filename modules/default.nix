@@ -1,7 +1,5 @@
 {
   config,
-  lib,
-  pkgs,
   ...
 } @ args:
 
@@ -10,25 +8,25 @@ let
   configRelative = config.modules;
 
   # Create args for child-modules
-  childArgs = {
-    configRoot = config;
-    inherit configRelative lib pkgs;
-  };
+  childArgs = args // { inherit configRelative; configRoot = config; };
 
   # Import child-modules
-  fonts = (import ./fonts childArgs);
+  fonts     =  (import ./fonts    childArgs);
+  programs  =  (import ./programs childArgs);
 in
 {
   # === Options ===
   options.modules = {
-    fonts = fonts.options;
+    fonts     =  fonts.options;
+    programs  =  programs.options;
   };
   # === Options ===
 
 
   # === Imports ===
   imports = [
-    (builtins.removeAttrs fonts [ "options" ])
+    (builtins.removeAttrs fonts    [ "options" ])
+    (builtins.removeAttrs programs [ "options" ])
   ];
   # === Imports ===
 }

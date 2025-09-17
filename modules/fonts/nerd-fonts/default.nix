@@ -1,7 +1,7 @@
 {
   configRoot,
   lib,
-  pkgs,
+  pkgs-unstable,
   ...
 } @ args:
 
@@ -9,6 +9,8 @@ let
   # Get relative config position
   configRelative = args.configRelative.nerd-fonts;
   cfg = configRelative;
+
+  font-pkgs = pkgs-unstable;
 in
 {
   # === Options ===
@@ -38,10 +40,10 @@ in
     home.packages = (if cfg.all
       then builtins.filter (
         (lib.attrsets.isDerivation)
-        (builtins.attrValues pkgs.nerd-fonts)
+        (builtins.attrValues font-pkgs.nerd-fonts)
       )
 
-      else (cfg.fonts pkgs.nerd-fonts)
+      else (cfg.fonts font-pkgs.nerd-fonts)
     );
   };
   # === Config ===

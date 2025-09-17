@@ -22,7 +22,6 @@ in
     (import (lib.custom.fromRoot "homes/common/optional/bitwarden") args)
     (import (lib.custom.fromRoot "homes/common/optional/ghostty") args)
     (import (lib.custom.fromRoot "homes/common/optional/git") args)
-    (import (lib.custom.fromRoot "homes/common/optional/zsh") args)
   ];
 
 
@@ -56,7 +55,12 @@ in
   ];
 
   # Programs
-  programs = {
+  modules.programs.shells = {
+    zsh = {
+      enable = true;
+      preferred = true;
+    };
+
     bash.enable = true;
   };
 
