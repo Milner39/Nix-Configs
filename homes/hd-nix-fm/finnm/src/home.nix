@@ -2,9 +2,11 @@
   config,
   lib,
   pkgs,
+  pkgs-unstable,
 
   # extraSpecialArgs
   username,
+  inputs,
   ...
 } @ baseArgs:
 
@@ -26,6 +28,11 @@ in
 
 
   # === Home Manager ===
+
+  home = {
+    username = username;
+    homeDirectory = "/home/${username}";
+  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

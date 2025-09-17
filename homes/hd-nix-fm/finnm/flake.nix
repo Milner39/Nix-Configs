@@ -2,7 +2,8 @@
   inputs = {
     # === Essentials ===
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url           =  "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url  =  "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -16,9 +17,12 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     home-manager,
     ...
   } @ inputs: let
+
+    flakeTools = import ../../../lib/flake {};
 
     # Extend lib with Home Manager & lib.custom
     lib = nixpkgs.lib.extend (self: super: {
@@ -32,35 +36,20 @@
     };
 
   in {
+    # home-manager switch --flake ./hosts/hd-nix-fm/finnm
     homeConfigurations = {
       # === finnm@hd-nix-fm ===
 
-      "finnm@hd-nix-fm" = let
+      "finnm@hd-nix-fm" = flakeTools.mkHomeConf {
         username = "finnm";
-
         system = "x86_64-linux";
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
+        home-manager = home-manager;
+        nixpkgs = {
+          stable = nixpkgs;
+          unstable = nixpkgs-unstable;
         };
-
-        extraSpecialArgs = baseSpecialArgs // { inherit
-          username;
-        };
-
-      in home-manager.lib.homeManagerConfiguration {
-        inherit pkgs extraSpecialArgs;
-
-        modules = [
-          {
-            home = {
-              inherit username;
-              homeDirectory = "/home/${username}";
-            };
-          }
-
-          ./homes/hd-nix-fm/finnm/home.nix
-        ];
+        modules = [ ./src/home.nix ];
+        extraSpecialArgs = { inherit inputs; };
       };
 
       # === finnm@hd-nix-fm ===
