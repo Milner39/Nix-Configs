@@ -40,11 +40,14 @@ in
 
 
   # === Imports ===
-  imports = lib.mkIf cfg.preferred [
+  imports = [
     (import ../set-preferred-shell.nix {
-      shellPackage = zsh-pkg;
-      binaryPath = "/bin/zsh";
-    })
+        inherit lib;
+        enable = cfg.preferred;
+        shellPackage = zsh-pkg;
+        binaryPath = "/bin/zsh";
+      }
+    )
   ];
   # === Imports ===
 }

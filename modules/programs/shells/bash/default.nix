@@ -40,11 +40,14 @@ in
 
 
   # === Imports ===
-  imports = lib.mkIf cfg.preferred [
+  imports = [
     (import ../set-preferred-shell.nix {
-      shellPackage = bash-pkg;
-      binaryPath = "/bin/bash";
-    })
+        inherit lib;
+        enable = cfg.preferred;
+        shellPackage = bash-pkg;
+        binaryPath = "/bin/bash";
+      }
+    )
   ];
   # === Imports ===
 }
