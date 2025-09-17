@@ -36,7 +36,7 @@
     };
 
   in {
-    # home-manager switch --flake ./hosts/hd-nix-fm/finnm
+    # home-manager switch --flake ./homes/hd-nix-fm/finnm
     homeConfigurations = {
       # === finnm@hd-nix-fm ===
 

@@ -134,7 +134,6 @@ let
     };
 
   in home-manager.lib.homeManagerConfiguration { inherit
-    system
     pkgs
     modules
     extraSpecialArgs;
