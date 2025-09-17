@@ -8,7 +8,7 @@ let
   configRelative = args.configRelative.zsh;
   cfg = configRelative;
 
-  zsh-pkg = pkg.zsh;
+  zsh-pkg = pkgs.zsh;
 in
 {
   # === Options ===

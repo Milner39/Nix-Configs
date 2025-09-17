@@ -8,7 +8,7 @@ let
   configRelative = args.configRelative.bash;
   cfg = configRelative;
 
-  bash-pkg = pkg.bash;
+  bash-pkg = pkgs.bash;
 in
 {
   # === Options ===
