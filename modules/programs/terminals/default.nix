@@ -16,11 +16,11 @@ let
 in
 {
   # === Options ===
-  # options = {
-  #   shells        =  shells.options;
-  #   terminals     =  terminals.options;
-  #   text-editors  =  text-editors.options;
-  # };
+  options = {
+    # shells        =  shells.options;
+    # terminals     =  terminals.options;
+    # text-editors  =  text-editors.options;
+  };
   # === Options ===
 
 
