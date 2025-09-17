@@ -58,7 +58,7 @@ in
   modules.programs.shells = {
     zsh = {
       enable = true;
-      preferred = true;
+      preferred = true;  # Sets `$SHELL`
     };
 
     bash.enable = true;
