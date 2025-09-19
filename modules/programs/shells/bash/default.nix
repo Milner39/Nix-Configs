@@ -9,7 +9,7 @@ let
   configRelative = args.configRelative.bash;
   cfg = configRelative;
 
-  bash-pkg = pkgs.bash;
+  pkg = pkgs.bash;
 in
 {
   # === Options ===
@@ -33,7 +33,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.bash = {
       enable = true;
-      package = bash-pkg;
+      package = pkg;
     };
   };
   # === Config ===
@@ -44,7 +44,7 @@ in
     (import ../set-preferred-shell.nix {
       inherit lib;
       enable = cfg.preferred;
-      shellPackage = bash-pkg;
+      shellPackage = pkg;
       binaryPath = "/bin/bash";
     })
   ];

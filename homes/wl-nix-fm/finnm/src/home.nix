@@ -18,8 +18,6 @@ in
   imports = [
     # Add modules
     (import (lib.custom.fromRoot "modules") args)
-
-    (import (lib.custom.fromRoot "homes/common/optional/git") args)
   ];
 
 
@@ -69,6 +67,8 @@ in
         preferred = true;
       };
     };
+
+    dev.git.enable = true;
   };
 
   # Variables

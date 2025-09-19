@@ -9,7 +9,7 @@ let
   configRelative = args.configRelative.zsh;
   cfg = configRelative;
 
-  zsh-pkg = pkgs.zsh;
+  pkg = pkgs.zsh;
 in
 {
   # === Options ===
@@ -33,7 +33,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.zsh = {
       enable = true;
-      package = zsh-pkg;
+      package = pkg;
     };
   };
   # === Config ===
@@ -44,7 +44,7 @@ in
     (import ../set-preferred-shell.nix {
       inherit lib;
       enable = cfg.preferred;
-      shellPackage = zsh-pkg;
+      shellPackage = pkg;
       binaryPath = "/bin/zsh";
     })
   ];
