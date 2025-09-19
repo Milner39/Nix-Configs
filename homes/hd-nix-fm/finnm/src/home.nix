@@ -18,10 +18,6 @@ in
   imports = [
     # Add modules
     (import (lib.custom.fromRoot "modules") args)
-
-    (import (lib.custom.fromRoot "homes/common/optional/bitwarden") args)
-    (import (lib.custom.fromRoot "homes/common/optional/ghostty") args)
-    (import (lib.custom.fromRoot "homes/common/optional/git") args)
   ];
 
 
@@ -55,13 +51,24 @@ in
   ];
 
   # Programs
-  modules.programs.shells = {
-    zsh = {
-      enable = true;
-      preferred = true;  # Sets `$SHELL`
+  modules.programs = {
+    shells = {
+      zsh = {
+        enable = true;
+        preferred = true;  # Sets `$SHELL`
+      };
+
+      bash.enable = true;
     };
 
-    bash.enable = true;
+    terminals = {
+      ghostty = {
+        enable = true;
+        preferred = true;
+      };
+    };
+
+    dev.git.enable = true;
   };
 
   # Variables
