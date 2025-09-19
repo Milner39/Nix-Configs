@@ -10,25 +10,19 @@ let
   childArgs = args // { inherit configRelative; };
 
   # Import child-modules
-  # shells        =  (import ./shells       childArgs);
-  # terminals     =  (import ./terminals    childArgs);
-  # text-editors  =  (import ./text-editors childArgs);
+  ghostty  =  (import ./ghostty childArgs);
 in
 {
   # === Options ===
   options = {
-    # shells        =  shells.options;
-    # terminals     =  terminals.options;
-    # text-editors  =  text-editors.options;
+    ghostty  =  ghostty.options;
   };
   # === Options ===
 
 
   # === Imports ===
   imports = [
-    # (builtins.removeAttrs shells       [ "options" ])
-    # (builtins.removeAttrs terminals    [ "options" ])
-    # (builtins.removeAttrs text-editors [ "options" ])
+    (builtins.removeAttrs ghostty [ "options" ])
   ];
   # === Imports ===
 }

@@ -6,22 +6,22 @@
 
 let
   # Get relative config position
-  configRelative = args.configRelative.zsh;
+  configRelative = args.configRelative.ghostty;
   cfg = configRelative;
 
-  zsh-pkg = pkgs.zsh;
+  pkg = pkgs.ghostty;
 in
 {
   # === Options ===
   options = {
     "enable" = lib.mkOption {
-      description = "Whether to enable `zsh`.";
+      description = "Whether to enable `ghostty`.";
       default = false;
       type = lib.types.bool;
     };
 
     "preferred" = lib.mkOption {
-      description = "Whether to set `$SHELL` to this shell.";
+      description = "Whether to set `$TERM_PREFERRED` to this terminal.";
       default = false;
       type = lib.types.bool;
     };
@@ -31,9 +31,9 @@ in
 
   # === Config ===
   config = lib.mkIf cfg.enable {
-    programs.zsh = {
+    programs.ghostty = {
       enable = true;
-      package = zsh-pkg;
+      package = pkg;
     };
   };
   # === Config ===
@@ -41,11 +41,11 @@ in
 
   # === Imports ===
   imports = [
-    (import ../set-preferred-shell.nix {
+    (import ../set-preferred-term.nix {
       inherit lib;
       enable = cfg.preferred;
-      shellPackage = zsh-pkg;
-      binaryPath = "/bin/zsh";
+      shellPackage = pkg;
+      binaryPath = "/bin/ghostty";
     })
   ];
   # === Imports ===

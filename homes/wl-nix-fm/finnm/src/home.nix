@@ -54,13 +54,22 @@ in
   ];
 
   # Programs
-  modules.programs.shells = {
-    zsh = {
-      enable = true;
-      preferred = true;  # Sets `$SHELL`
+  modules.programs = {
+    shells = {
+      zsh = {
+        enable = true;
+        preferred = true;  # Sets `$SHELL`
+      };
+
+      bash.enable = true;
     };
 
-    bash.enable = true;
+    terminals = {
+      ghostty = {
+        enable = true;
+        preferred = true;
+      };
+    };
   };
 
   # Variables

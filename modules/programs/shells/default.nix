@@ -10,8 +10,8 @@ let
   childArgs = args // { inherit configRelative; };
 
   # Import child-modules
-  bash  =  (import ./bash  childArgs);
-  zsh   =  (import ./zsh   childArgs);
+  bash  =  (import ./bash childArgs);
+  zsh   =  (import ./zsh  childArgs);
 in
 {
   # === Options ===

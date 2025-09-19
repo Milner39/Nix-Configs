@@ -42,12 +42,11 @@ in
   # === Imports ===
   imports = [
     (import ../set-preferred-shell.nix {
-        inherit lib;
-        enable = cfg.preferred;
-        shellPackage = bash-pkg;
-        binaryPath = "/bin/bash";
-      }
-    )
+      inherit lib;
+      enable = cfg.preferred;
+      shellPackage = bash-pkg;
+      binaryPath = "/bin/bash";
+    })
   ];
   # === Imports ===
 }
