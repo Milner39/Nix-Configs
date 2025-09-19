@@ -47,6 +47,7 @@ in
 
   # Packages
   home.packages = with pkgs; [
+    ranger
     pkgs-unstable.ncspot
   ];
 
