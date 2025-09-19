@@ -19,7 +19,6 @@ in
     # Add modules
     (import (lib.custom.fromRoot "modules") args)
 
-    (import (lib.custom.fromRoot "homes/common/optional/ghostty") args)
     (import (lib.custom.fromRoot "homes/common/optional/git") args)
   ];
 
