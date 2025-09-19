@@ -49,7 +49,7 @@ in
 
   # Packages
   home.packages = with pkgs; [
-
+    pkgs-unstable.ncspot
   ];
 
   # Programs
