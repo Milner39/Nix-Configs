@@ -44,7 +44,7 @@ in
     (import ../set-preferred-term.nix {
       inherit lib;
       enable = cfg.preferred;
-      shellPackage = pkg;
+      package = pkg;
       binaryPath = "/bin/ghostty";
     })
   ];

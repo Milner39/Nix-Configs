@@ -1,12 +1,12 @@
 {
   lib,
   enable ? true,
-  shellPackage,
+  package,
   binaryPath,
 }:
 
 {
   home.sessionVariables."TERM_PREFERRED" = lib.mkIf enable (
-    "${shellPackage}${binaryPath}"
+    "${package}${binaryPath}"
   );
 }

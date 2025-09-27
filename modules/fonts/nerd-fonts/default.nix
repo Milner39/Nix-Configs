@@ -1,5 +1,4 @@
 {
-  configRoot,
   lib,
   pkgs-unstable,
   ...

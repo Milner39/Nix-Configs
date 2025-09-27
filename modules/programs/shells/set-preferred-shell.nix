@@ -1,7 +1,7 @@
 {
   lib,
   enable ? true,
-  shellPackage,
+  package,
   binaryPath,
 }:
 
@@ -12,7 +12,7 @@
 {
   home.file.".config/environment.d/90-shell.conf" = lib.mkIf enable {
     text = ''
-      SHELL=${shellPackage}${binaryPath}
+      SHELL=${package}${binaryPath}
     '';
   };
 }
