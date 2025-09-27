@@ -43,6 +43,7 @@ in
   # === Home Manager ===
 
 
+
   # === User Environment ===
 
   # Packages
@@ -51,26 +52,48 @@ in
     pkgs-unstable.ncspot
   ];
 
-  # Programs
-  modules.programs = {
-    shells = {
-      zsh = {
-        enable = true;
-        preferred = true;  # Sets `$SHELL`
-      };
 
-      bash.enable = true;
+  # Shells
+  modules.programs.shells = {
+    zsh = {
+      enable = true;
+      preferred = true;  # Sets `$SHELL`
     };
 
-    terminals = {
-      ghostty = {
-        enable = true;
-        preferred = true;
-      };
-    };
-
-    dev.git.enable = true;
+    bash.enable = true;
   };
+
+
+  # Terminals
+  modules.programs.terminals = {
+    ghostty = {
+      enable = true;
+      preferred = true;
+    };
+  };
+
+
+  # Text Editors
+  modules.programs.text-editors = {
+    vscode = {
+      enable = true;
+      preferred = true;
+    };
+  };
+
+
+  # Dev Tools
+  modules.programs.dev.git.enable = true;
+
+
+  # Fonts
+  modules.fonts.nerd-fonts = {
+    # all = true;  # For all NerdFonts
+    fonts = nf: with nf; [
+      jetbrains-mono
+    ];
+  };
+
 
   # Variables
   home.sessionVariables = {
@@ -89,14 +112,6 @@ in
     # or
     #
     #  /etc/profiles/per-user/finnm/etc/profile.d/hm-session-vars.sh
-
-  };
-
-  modules.fonts.nerd-fonts = {
-    # all = true;  # For all NerdFonts
-    fonts = nf: with nf; [
-      jetbrains-mono
-    ];
   };
 
   # === User Environment ===
