@@ -27,7 +27,7 @@ in
   # === Config ===
   config = let
 
-    # These will be turned into options so different themes can be used
+    # TODO: These will be turned into options so different themes can be used
     configFolder = "${configRoot.xdg.configHome}/oh-my-posh";
     entryFile = "config.toml";
 
