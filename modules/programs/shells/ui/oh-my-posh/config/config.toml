@@ -110,3 +110,9 @@ rArrow = "󰅂"
 # == Current command ==
 
 # === PROMPT ===
+
+
+# Wish there was a way to get a look like this:
+# ┌─────────────────────┐ ┌────────┐ ┌─────┐ 
+# │ ~/Groups/Projects/1 │ │  main │ │ zsh │ 
+# └─────────────────────┘ └────────┘ └─────┘ 
