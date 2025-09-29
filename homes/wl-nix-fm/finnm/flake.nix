@@ -47,7 +47,7 @@
           stable = nixpkgs;
           unstable = nixpkgs-unstable;
         };
-        modules = [ ./src/home.nix ];
+        modules = [ ./src/home.nix { home.enableNixpkgsReleaseCheck = false; }];
         extraSpecialArgs = { inherit inputs; };
       };
 
