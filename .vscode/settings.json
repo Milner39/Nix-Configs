@@ -1,10 +1,12 @@
 {
   "cSpell.words": [
     "attrsets",
+    "executiontime",
     "ghostty",
     "ncspot",
     "nerdfonts",
     "nixpkgs",
-    "Nushell"
+    "Nushell",
+    "rprompt"
   ]
 }
