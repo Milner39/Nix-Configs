@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "bbenoist.nix",
-    "timonwong.shellcheck"
+    "timonwong.shellcheck",
+    "tamasfe.even-better-toml"
   ]
 }

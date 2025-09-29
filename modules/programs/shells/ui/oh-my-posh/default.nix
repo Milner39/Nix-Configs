@@ -1,4 +1,5 @@
 {
+  configRoot,
   lib,
   pkgs,
   ...
@@ -24,7 +25,13 @@ in
 
 
   # === Config ===
-  config = lib.mkIf cfg.enable {
+  config = let
+
+    # These will be turned into options so different themes can be used
+    configFolder = "${configRoot.xdg.configHome}/oh-my-posh";
+    entryFile = "config.toml";
+
+  in lib.mkIf cfg.enable {
     programs.oh-my-posh = {
       enable = true;
       package = pkg;
@@ -33,7 +40,11 @@ in
       enableZshIntegration = true;
       enableFishIntegration = true;
       enableNushellIntegration = true;
+
+      configFile = "${configFolder}/${entryFile}";
     };
+
+    home.file."${configFolder}".source = ./config;
   };
   # === Config ===
 }

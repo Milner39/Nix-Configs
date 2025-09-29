@@ -6,7 +6,7 @@
     nixpkgs-unstable.url  =  "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -55,3 +55,9 @@
     };
   };
 }
+
+/*
+  Not using the correct version of Home Manager because 25.05 does not have:
+  • `programs.oh-my-posh.configFile` and otherwise, I would not be able to use 
+    `.toml` files for configs.
+*/
