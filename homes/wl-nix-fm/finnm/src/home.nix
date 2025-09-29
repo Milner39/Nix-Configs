@@ -61,6 +61,8 @@ in
     };
 
     bash.enable = true;
+
+    ui.oh-my-posh.enable = true;
   };
 
 

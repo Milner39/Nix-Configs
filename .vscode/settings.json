@@ -4,6 +4,7 @@
     "ghostty",
     "ncspot",
     "nerdfonts",
-    "nixpkgs"
+    "nixpkgs",
+    "Nushell"
   ]
 }

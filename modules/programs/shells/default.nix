@@ -12,12 +12,14 @@ let
   # Import child-modules
   bash  =  (import ./bash childArgs);
   zsh   =  (import ./zsh  childArgs);
+  ui    =  (import ./ui   childArgs);
 in
 {
   # === Options ===
   options = {
     bash  =  bash.options;
     zsh   =  zsh.options;
+    ui    =  ui.options;
   };
   # === Options ===
 
@@ -26,6 +28,7 @@ in
   imports = [
     (builtins.removeAttrs bash [ "options" ])
     (builtins.removeAttrs zsh  [ "options" ])
+    (builtins.removeAttrs ui   [ "options" ])
   ];
   # === Imports ===
 }
