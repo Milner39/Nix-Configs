@@ -1,7 +1,7 @@
 {
   configRoot,
   lib,
-  pkgs,
+  pkgs-unstable,
   ...
 } @ args:
 
@@ -10,7 +10,7 @@ let
   configRelative = args.configRelative.oh-my-posh;
   cfg = configRelative;
 
-  pkg = pkgs.oh-my-posh;
+  pkg = pkgs-unstable.oh-my-posh;
 in
 {
   # === Options ===
