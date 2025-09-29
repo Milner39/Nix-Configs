@@ -84,11 +84,20 @@ rArrow = "󰅂"
     style = "plain"
     background = "transparent"
     foreground = "p:system"
-    template = "󱦟 {{ .FormattedMs }}"
+    template = "󱦟 {{ .FormattedMs }} "
 
     [blocks.segments.properties]
       threshold = 5000
       style = "round"
+
+
+  # Shell
+  [[blocks.segments]]
+    type = "shell"
+    style = "plain"
+    background = "transparent"
+    foreground = "p:system"
+    template = "{{ .Name }}"
 
 
 [[blocks]]
