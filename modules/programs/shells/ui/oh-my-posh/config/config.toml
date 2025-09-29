@@ -75,15 +75,15 @@ rArrow = "󰅂"
 
 [[blocks]]
   type = "prompt"
-  overflow = "hidden"
   alignment = "right"
+  overflow = "hide"
 
   # Execution time
   [[blocks.segments]]
     type = "executiontime"
     style = "plain"
     background = "transparent"
-    foreground = "p:system"
+    foreground = "p:protocol"
     template = "󱦟 {{ .FormattedMs }} "
 
     [blocks.segments.properties]
