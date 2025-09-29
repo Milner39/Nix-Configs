@@ -3,6 +3,7 @@
 console_title_template = "{{ .Shell }} in {{ .Folder }}"
 version = 3
 final_space = true
+async = true
 
 
 [palette]
@@ -34,8 +35,9 @@ rArrow = "󰅂"
 
 # Multi-line commands
 [secondary_prompt]
-background = "transparent"
-template = ""
+  background = "transparent"
+  foreground = "p:system"
+  template = "{{ .Var.rArrow }}{{ .Var.rArrow }} "
 
 
 
