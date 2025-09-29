@@ -35,7 +35,6 @@ rArrow = "󰅂"
 
 # Multi-line commands
 [secondary_prompt]
-  background = "transparent"
   foreground = "p:system"
   template = "{{ .Var.rArrow }}{{ .Var.rArrow }} "
 
@@ -48,29 +47,55 @@ rArrow = "󰅂"
   alignment = "left"
   newline = true
 
+  # Session
+  [[blocks.segments]]
+    type = "session"
+    style = "plain"
+    foreground = "p:system"
+    template = "{{ .UserName }}"
+
   # Path
   [[blocks.segments]]
     type = "path"
     style = "plain"
-    background = "transparent"
-    foreground = "p:system"
-    template = "{{ .Path }}"
+    foreground = "p:protocol"
+    template = " {{ .Path }}"
 
     [blocks.segments.properties]
       style = "full"
+
 
   # Git
   [[blocks.segments]]
     type = "git"
     style = "plain"
-    background = "transparent"
-    foreground = "p:protocol"
-    template = "  {{ .HEAD }}{{if or (.Working.Changed) (.Staging.Changed)}}*{{end}} {{if gt .Behind 0 }}⇣{{end}}{{if gt .Ahead 0}}⇡{{end}}"
+    foreground = "p:clarity"
+    template = "  {{ .HEAD }}{{if or (.Working.Changed) (.Staging.Changed)}}*{{end}}{{if or (gt .Behind 0) (gt .Ahead 0)}} {{end}}{{if gt .Behind 0 }}⇣{{end}}{{if gt .Ahead 0}}⇡{{end}}"
 
     [blocks.segments.properties]
       branch_icon = ""
       commit_icon = "@"
       fetch_status = true
+
+
+[[blocks]]
+  type = "prompt"
+  alignment = "left"
+
+  # Root
+  [[blocks.segments]]
+    type = "root"
+    style = "plain"
+    foreground = "p:membrane"
+    template = " 󱅧"
+
+    # SSH
+  [[blocks.segments]]
+    type = "session"
+    style = "plain"
+    foreground = "p:membrane"
+    template = "{{with .SSHSession }} 󰢹{{ end }}"
+
 
 
 [[blocks]]
@@ -82,7 +107,6 @@ rArrow = "󰅂"
   [[blocks.segments]]
     type = "executiontime"
     style = "plain"
-    background = "transparent"
     foreground = "p:protocol"
     template = "󱦟 {{ .FormattedMs }} "
 
@@ -95,9 +119,9 @@ rArrow = "󰅂"
   [[blocks.segments]]
     type = "shell"
     style = "plain"
-    background = "transparent"
     foreground = "p:system"
     template = "{{ .Name }}"
+
 
 
 [[blocks]]
@@ -109,7 +133,6 @@ rArrow = "󰅂"
   [[blocks.segments]]
     type = "text"
     style = "plain"
-    background = "transparent"
     foreground_templates = [
       "{{if gt .Code 0}}red{{end}}",
       "{{if eq .Code 0}}p:system{{end}}"
@@ -119,9 +142,3 @@ rArrow = "󰅂"
 # == Current command ==
 
 # === PROMPT ===
-
-
-# Wish there was a way to get a look like this:
-# ┌─────────────────────┐ ┌────────┐ ┌─────┐ 
-# │ ~/Groups/Projects/1 │ │  main │ │ zsh │ 
-# └─────────────────────┘ └────────┘ └─────┘ 
