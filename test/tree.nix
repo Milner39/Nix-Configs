@@ -69,9 +69,9 @@ let
       name = dirName;
       value = buildModuleTree {
         dir = dir + "/${dirName}";
-        args = args // { configRelative = configRelative.dirName; };
+        args = args // { configRelative = args.configRelative.dirName; };
       };
-    }) (getSubdirNames ./.));
+    }) (getSubdirNames dir));
 
     # Get submodules' options by name of submodule
     submodulesOptions = builtins.mapAttrs 
