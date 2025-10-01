@@ -5,32 +5,34 @@
 } @ args:
 
 let
-  # Create the "root" of the custom module tree
+  # === Constants ===
+
+  # Name for the "root" of the custom module tree
   # All sub modules will be available under this attribute
-  # Example: `./programs/shells/bash` will be `modules.programs.shells.bash`
+  # Example: `./programs/shells/bash`
+  # Becomes: `${moduleRootName}.programs.shells.bash`
   moduleRootName = "modules";
 
+  # For readability
+  configRoot = config;
 
-  # Create args for root module
-  moduleRootArgs = args // {
-    configRoot = config;
-    configRelative = config.${moduleRootName};
-  };
+  # === Constants ===
 
 
 
-# === ⣏⡱ ⣏⡉ ⡎⠑ ⡇⢸ ⣏⡱ ⢎⡑ ⡇ ⡎⢱ ⡷⣸   ⢉⠝ ⡎⢱ ⡷⣸ ⣏⡉ ===
-# === ⠇⠱ ⠧⠤ ⠣⠔ ⠣⠜ ⠇⠱ ⠢⠜ ⠇ ⠣⠜ ⠇⠹   ⠮⠤ ⠣⠜ ⠇⠹ ⠧⠤ ===
+  # === Functions ===
 
-  # Function to get the names of subdirectories (modules) in a directory
+  # Function to get the names of subdirectories in a directory
   getSubdirNames = dir : let
     dirContent = builtins.readDir dir;
+
     submodules = builtins.filter
       (contentName: # Filter to get directories that don't start with "_"
         builtins.substring 0 1 contentName != "_" &&
         dirContent.${contentName} == "directory"
       )
       (builtins.attrNames dirContent);
+
   in submodules;
 
 
@@ -38,6 +40,7 @@ let
   # Function to build a single module
   buildModule = { file, args } : let
     fileExists = builtins.pathExists file;
+
     module = (if fileExists
       then (
         let file = (import file args); 
@@ -46,21 +49,30 @@ let
           config = (builtins.removeAttrs file [ "options" ]);
         }
       )
+
       else {
         options = {};
         config = {};
       }
     );
+
   in module;
 
 
 
   # Function to recursively traverse directory and build module tree
-  buildModuleTree = { dir, args } : let
+  buildModuleTree = { dir, args, path } : let
     # Get the module in the current directory
     currentModule = buildModule {
-      file = dir + ./default.nix;
-      args = args;
+      file = dir + "/default.nix";
+      args = args // {
+        # Lazily resolve to the correct "branch" of the root config to prevent
+        # recursion errors.
+        # But expose it already evaluated using `lib.mkDefault` magic
+        # This means we don't have to make `configRelative` a function, which 
+        # is another option to resolve it lazily.
+        configRelative = lib.mkDefault (lib.attrByPath path {} configRoot);
+      };
     };
 
 
@@ -69,7 +81,8 @@ let
       name = dirName;
       value = buildModuleTree {
         dir = dir + "/${dirName}";
-        args = args // { configRelative = args.configRelative.dirName; };
+        args = args;
+        path = path ++ [ dirName ];
       };
     }) (getSubdirNames dir));
 
@@ -93,14 +106,16 @@ let
 
   in result;
 
-# === ⣏⡱ ⣏⡉ ⡎⠑ ⡇⢸ ⣏⡱ ⢎⡑ ⡇ ⡎⢱ ⡷⣸   ⢉⠝ ⡎⢱ ⡷⣸ ⣏⡉ ===
-# === ⠇⠱ ⠧⠤ ⠣⠔ ⠣⠜ ⠇⠱ ⠢⠜ ⠇ ⠣⠜ ⠇⠹   ⠮⠤ ⠣⠜ ⠇⠹ ⠧⠤ ===
+  # === Functions ===
+
+
 
 
   # Create the module tree
   result = buildModuleTree {
     dir = ./.;
-    args = moduleRootArgs;
+    args = args // { inherit configRoot; };
+    path = [ moduleRootName ];
   };
 
 in
