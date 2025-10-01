@@ -26,14 +26,14 @@ let
   getSubdirNames = dir : let
     dirContent = builtins.readDir dir;
 
-    submodules = builtins.filter
+    subDirNames = builtins.filter
       (contentName: # Filter to get directories that don't start with "_"
         builtins.substring 0 1 contentName != "_" &&
         dirContent.${contentName} == "directory"
       )
       (builtins.attrNames dirContent);
 
-  in submodules;
+  in subDirNames;
 
 
 
@@ -43,10 +43,13 @@ let
 
     module = (if fileExists
       then (
-        let file = (import file args); 
+        let file = (import file args);
         in {
-          options = file.options;
-          config = (builtins.removeAttrs file [ "options" ]);
+          options = if file ? options then file.options else {};
+          config = {
+            config = if file ? config then file.config else {};
+            imports = if file ? imports then file.imports else [];
+          };
         }
       )
 
@@ -65,14 +68,7 @@ let
     # Get the module in the current directory
     currentModule = buildModule {
       file = dir + "/default.nix";
-      args = args // {
-        # Lazily resolve to the correct "branch" of the root config to prevent
-        # recursion errors.
-        # But expose it already evaluated using `lib.mkDefault` magic
-        # This means we don't have to make `configRelative` a function, which 
-        # is another option to resolve it lazily.
-        configRelative = lib.mkDefault (lib.attrByPath path {} configRoot);
-      };
+      args = args // { configRelative = (lib.attrByPath path {} configRoot); };
     };
 
 
