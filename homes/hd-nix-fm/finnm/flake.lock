@@ -48,13 +48,13 @@
       "locked": {
         "lastModified": 1759443750,
         "narHash": "sha256-YIl9szgT/9KS4SLurpyMinS1GWm2+b+gc0aJ1BW//Kw=",
-        "owner": "milner39",
+        "owner": "Milner39",
         "repo": "nix-utils",
         "rev": "57f5a225ea951e643f74caee37dbe171e130da7a",
         "type": "github"
       },
       "original": {
-        "owner": "milner39",
+        "owner": "Milner39",
         "ref": "release-1.0",
         "repo": "nix-utils",
         "type": "github"
