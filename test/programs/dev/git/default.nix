@@ -1,14 +1,14 @@
 {
   configRoot,
-  configRootToRelative,
+  moduleConfig,
   lib,
   pkgs,
   ...
 } @ args:
 
 let
-  # Get relative config position
-  cfg = configRootToRelative configRoot;
+  # Get module configuration directly
+  cfg = moduleConfig;
 
   pkg = pkgs.git;
 in

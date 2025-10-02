@@ -1,14 +1,14 @@
 {
   configRoot,
-  configRootToRelative,
+  moduleConfig,
   lib,
   pkgs-unstable,
   ...
 } @ args:
 
 let
-  # Get relative config position
-  cfg = configRootToRelative configRoot;
+  # Get module configuration directly
+  cfg = moduleConfig;
 
   pkg = pkgs-unstable.nerd-fonts;
 in

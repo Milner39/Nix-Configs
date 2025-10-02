@@ -66,11 +66,9 @@ let
     currentModule = buildModule {
       file = dir + "/default.nix";
       args = args // {
-        # Function to lazily resolve to the correct "branch" of the root config 
-        # to prevent recursion errors.
-        # Modules should call `configRootToRelative configRoot` 
-        # to resolve the value.
-        configRootToRelative = cfgRoot: lib.attrByPath path {} cfgRoot;
+        # Pass the configuration for this module path directly
+        # avoiding infinite recursion by not reading from final config
+        moduleConfig = lib.attrByPath path {} configRoot.${moduleRootName} or {};
       };
     };
 
@@ -96,13 +94,11 @@ let
       submodules);
 
 
-    # Merge modules
+    # Merge modules using lib.mkMerge for proper module system integration
     result = {
       # Use the current module's options and merge in the submodules' options
       options = currentModule.options // submodulesOptions;
-      config = lib.recursiveUpdate currentModule.config (
-        lib.foldl lib.recursiveUpdate {} submodulesConfigs
-      );
+      config = lib.mkMerge ([ currentModule.config ] ++ submodulesConfigs);
     };
 
   in result;
@@ -116,10 +112,11 @@ let
   result = buildModuleTree {
     dir = ./.;
     args = args // { inherit configRoot; };
-    path = [ moduleRootName ];
+    path = [ ];
   };
 
 in
 {
   options.${moduleRootName} = result.options;
-} // result.config
+  config = result.config;
+}
