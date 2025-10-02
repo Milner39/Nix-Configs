@@ -100,7 +100,9 @@ let
     result = {
       # Use the current module's options and merge in the submodules' options
       options = currentModule.options // submodulesOptions;
-      config = lib.mkMerge ([ currentModule.config ] ++ submodulesConfigs);
+      config = lib.recursiveUpdate currentModule.config (
+        lib.foldl lib.recursiveUpdate {} submodulesConfigs
+      );
     };
 
   in result;
@@ -120,5 +122,4 @@ let
 in
 {
   options.${moduleRootName} = result.options;
-  config = result.config;
-}
+} // result.config

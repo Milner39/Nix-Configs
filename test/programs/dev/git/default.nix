@@ -34,7 +34,7 @@ in
       userEmail = "91906877+Milner39@users.noreply.github.com";
 
       extraConfig = {
-        init.defaultBranch = "mains";
+        init.defaultBranch = "main";
 
         safe.directory = [ "/etc/nixos" ];
       };
