@@ -6,6 +6,7 @@
 
   # extraSpecialArgs
   username,
+  system,
   inputs,
   ...
 } @ baseArgs:
@@ -16,8 +17,16 @@ let
 in
 {
   imports = [
-    # Add modules
-    (import (lib.custom.fromRoot "modules") args)
+    # Import modules that can be configured under the `modules` option.
+    # This is a special function that recursively builds a "tree" of options 
+    # based on the directory structure of choice.
+    # https://github.com/Milner39/nix-utils
+    (inputs.my-utils.lib.${system}.mkOptionTreeFromDir {
+      configRoot = config;
+      optionTreeName = "modules";
+      modulesDir = lib.custom.fromRoot "modules";
+      specialArgs = args;
+    })
   ];
 
 
@@ -43,68 +52,55 @@ in
   # === Home Manager ===
 
 
-  # === User Environment ===
+
 
   # Packages
   home.packages = with pkgs; [
-
+    ranger
+    pkgs-unstable.ncspot
   ];
 
-  # Programs
-  modules.programs = {
-    shells = {
-      zsh = {
-        enable = true;
-        preferred = true;  # Sets `$SHELL`
-      };
 
-      bash.enable = true;
+  # Shells
+  modules.programs.shells = {
+    zsh = {
+      enable = true;
+      preferred = true;  # Sets `$SHELL`
     };
 
-    terminals = {
-      ghostty = {
-        enable = true;
-        preferred = true;
-      };
+    bash.enable = true;
+
+    ui.oh-my-posh.enable = true;
+  };
+
+
+  # Terminals
+  modules.programs.terminals = {
+    ghostty = {
+      enable = true;
+      preferred = true;
     };
-
-    dev.git.enable = true;
   };
 
-  # Variables
-  home.sessionVariables = {
-    # Home Manager can also manage your environment variables through
-    # 'home.sessionVariables'. These will be explicitly sourced when using a
-    # shell provided by Home Manager. If you don't want to manage your shell
-    # through Home Manager then you have to manually source 'hm-session-vars.sh'
-    # located at either
-    #
-    #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-    #
-    # or
-    #
-    #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-    #
-    # or
-    #
-    #  /etc/profiles/per-user/finnm/etc/profile.d/hm-session-vars.sh
 
+  # Text Editors
+  modules.programs.text-editors = {
+    vscode = {
+      enable = true;
+      preferred = true;
+    };
   };
 
+
+  # Dev Tools
+  modules.programs.dev.git.enable = true;
+
+
+  # Fonts
   modules.fonts.nerd-fonts = {
     # all = true;  # For all NerdFonts
     fonts = nf: with nf; [
       jetbrains-mono
     ];
   };
-
-  # === User Environment ===
-
-
-  # === Dotfiles ===
-
-  home.file = {
-  };
-
-  # === Dotfiles ===
 }

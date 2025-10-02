@@ -1,6 +1,5 @@
 {
   inputs = {
-    # === Essentials ===
 
     nixpkgs.url           =  "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url  =  "github:nixos/nixpkgs/nixos-unstable";
@@ -10,7 +9,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    # === Essentials ===
+    my-utils = {
+      url = github:Milner39/nix-utils/release-1.0;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   };
 
@@ -23,17 +25,6 @@
   } @ inputs: let
 
     flakeTools = import ../../../lib/flake {};
-
-    # Extend lib with Home Manager & lib.custom
-    lib = nixpkgs.lib.extend (self: super: {
-      hm = home-manager.lib.hm;
-      custom = import ./lib { inherit (nixpkgs) lib; };
-    });
-
-    baseSpecialArgs = { inherit
-      inputs
-      lib;
-    };
 
   in {
     homeConfigurations = {

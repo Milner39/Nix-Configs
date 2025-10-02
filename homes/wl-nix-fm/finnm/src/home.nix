@@ -6,6 +6,7 @@
 
   # extraSpecialArgs
   username,
+  system,
   inputs,
   ...
 } @ baseArgs:
@@ -16,22 +17,18 @@ let
 in
 {
   imports = [
-    # Add modules
-    (import (lib.custom.fromRoot "modules/tree.nix") args)
+    # Import modules that can be configured under the `modules` option.
+    # This is a special function that recursively builds a "tree" of options 
+    # based on the directory structure of choice.
+    # https://github.com/Milner39/nix-utils
+    (inputs.my-utils.lib.${system}.mkOptionTreeFromDir {
+      configRoot = config;
+      optionTreeName = "modules";
+      modulesDir = lib.custom.fromRoot "modules";
+      specialArgs = args;
+    })
   ];
 
-  programs.git = {
-    enable = true;
-
-    userName = "Milner39";
-    userEmail = "91906877+Milner39@users.noreply.github.com";
-
-    extraConfig = {
-      init.defaultBranch = "main";
-
-      safe.directory = [ "/etc/nixos" ];
-    };
-  };
 
 
   # === Home Manager ===
@@ -56,7 +53,6 @@ in
 
 
 
-  # === User Environment ===
 
   # Packages
   home.packages = with pkgs; [
@@ -107,34 +103,4 @@ in
       jetbrains-mono
     ];
   };
-
-
-  # Variables
-  home.sessionVariables = {
-    # Home Manager can also manage your environment variables through
-    # 'home.sessionVariables'. These will be explicitly sourced when using a
-    # shell provided by Home Manager. If you don't want to manage your shell
-    # through Home Manager then you have to manually source 'hm-session-vars.sh'
-    # located at either
-    #
-    #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-    #
-    # or
-    #
-    #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-    #
-    # or
-    #
-    #  /etc/profiles/per-user/finnm/etc/profile.d/hm-session-vars.sh
-  };
-
-  # === User Environment ===
-
-
-  # === Dotfiles ===
-
-  home.file = {
-  };
-
-  # === Dotfiles ===
 }
