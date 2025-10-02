@@ -46,13 +46,15 @@ let
         let fileAttrs = (import file args);
         in {
           options = if fileAttrs ? options then fileAttrs.options else {};
-          config = builtins.removeAttrs fileAttrs [ "options" ];
+          config = if fileAttrs ? config then fileAttrs.config else {};
+          imports = if fileAttrs ? imports then fileAttrs.imports else [];
         }
       )
 
       else {
         options = {};
         config = {};
+        imports = [];
       }
     );
 
@@ -93,12 +95,21 @@ let
       (_: v: v.config) 
       submodules);
 
+    # Get submodules' imports in a flattened list
+    submodulesImports = lib.flatten (builtins.attrValues (builtins.mapAttrs
+      (_: v: v.imports)
+      submodules));
 
-    # Merge modules using lib.mkMerge for proper module system integration
+
     result = {
-      # Use the current module's options and merge in the submodules' options
+      # Use the current module's options and merge in the submodules' options as attrs
       options = currentModule.options // submodulesOptions;
+
+      # Merge modules using lib.mkMerge for proper module system integration
       config = lib.mkMerge ([ currentModule.config ] ++ submodulesConfigs);
+
+      # Collect all imports from the tree
+      imports = currentModule.imports ++ submodulesImports;
     };
 
   in result;
@@ -119,4 +130,5 @@ in
 {
   options.${moduleRootName} = result.options;
   config = result.config;
+  imports = result.imports;
 }
