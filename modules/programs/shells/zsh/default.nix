@@ -1,13 +1,13 @@
 {
+  moduleConfig,
   lib,
   pkgs,
   ...
 } @ args:
 
 let
-  # Get relative config position
-  configRelative = args.configRelative.zsh;
-  cfg = configRelative;
+  # Get module configuration
+  cfg = moduleConfig;
 
   pkg = pkgs.zsh;
 in

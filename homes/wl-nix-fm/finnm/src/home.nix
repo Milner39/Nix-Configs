@@ -17,9 +17,21 @@ in
 {
   imports = [
     # Add modules
-    (import (lib.custom.fromRoot "modules") args)
+    (import (lib.custom.fromRoot "modules/tree.nix") args)
   ];
 
+  programs.git = {
+    enable = true;
+
+    userName = "Milner39";
+    userEmail = "91906877+Milner39@users.noreply.github.com";
+
+    extraConfig = {
+      init.defaultBranch = "main";
+
+      safe.directory = [ "/etc/nixos" ];
+    };
+  };
 
 
   # === Home Manager ===

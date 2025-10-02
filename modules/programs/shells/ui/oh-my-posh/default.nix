@@ -1,14 +1,14 @@
 {
   configRoot,
+  moduleConfig,
   lib,
   pkgs-unstable,
   ...
 } @ args:
 
 let
-  # Get relative config position
-  configRelative = args.configRelative.oh-my-posh;
-  cfg = configRelative;
+  # Get module configuration
+  cfg = moduleConfig;
 
   pkg = pkgs-unstable.oh-my-posh;
 in
@@ -44,7 +44,7 @@ in
       configFile = "${configFolder}/${entryFile}";
     };
 
-    home.file."${configFolder}".source = ./config;
+    home.file."${configFolder}".source = ./_config;
   };
   # === Config ===
 }

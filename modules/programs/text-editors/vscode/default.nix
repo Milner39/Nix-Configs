@@ -1,13 +1,13 @@
 {
+  moduleConfig,
   lib,
   pkgs-unstable,
   ...
 } @ args:
 
 let
-  # Get relative config position
-  configRelative = args.configRelative.vscode;
-  cfg = configRelative;
+  # Get module configuration
+  cfg = moduleConfig;
 
   # Use latest version, wrapped variant that launches with FHS compatible env
   # This lets all vscode extensions work without the need for nix-specific conf

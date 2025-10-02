@@ -1,13 +1,13 @@
 {
+  moduleConfig,
   lib,
   pkgs-unstable,
   ...
 } @ args:
 
 let
-  # Get relative config position
-  configRelative = args.configRelative.nerd-fonts;
-  cfg = configRelative;
+  # Get module configuration
+  cfg = moduleConfig;
 
   pkg = pkgs-unstable.nerd-fonts;
 in
