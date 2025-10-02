@@ -1,5 +1,6 @@
 {
-  configRelative,
+  configRoot,
+  configRootToRelative,
   lib,
   pkgs,
   ...
@@ -7,7 +8,7 @@
 
 let
   # Get relative config position
-  cfg = configRelative;
+  cfg = configRootToRelative configRoot;
 
   pkg = pkgs.git;
 in
@@ -33,7 +34,7 @@ in
       userEmail = "91906877+Milner39@users.noreply.github.com";
 
       extraConfig = {
-        init.defaultBranch = "main";
+        init.defaultBranch = "mains";
 
         safe.directory = [ "/etc/nixos" ];
       };

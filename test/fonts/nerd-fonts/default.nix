@@ -1,5 +1,6 @@
 {
-  configRelative,
+  configRoot,
+  configRootToRelative,
   lib,
   pkgs-unstable,
   ...
@@ -7,7 +8,7 @@
 
 let
   # Get relative config position
-  cfg = configRelative;
+  cfg = configRootToRelative configRoot;
 
   pkg = pkgs-unstable.nerd-fonts;
 in

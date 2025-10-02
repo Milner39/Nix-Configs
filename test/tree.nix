@@ -43,13 +43,10 @@ let
 
     module = (if fileExists
       then (
-        let file = (import file args);
+        let fileAttrs = (import file args);
         in {
-          options = if file ? options then file.options else {};
-          config = {
-            config = if file ? config then file.config else {};
-            imports = if file ? imports then file.imports else [];
-          };
+          options = if fileAttrs ? options then fileAttrs.options else {};
+          config = builtins.removeAttrs fileAttrs [ "options" ];
         }
       )
 
@@ -68,7 +65,13 @@ let
     # Get the module in the current directory
     currentModule = buildModule {
       file = dir + "/default.nix";
-      args = args // { configRelative = (lib.attrByPath path {} configRoot); };
+      args = args // {
+        # Function to lazily resolve to the correct "branch" of the root config 
+        # to prevent recursion errors.
+        # Modules should call `configRootToRelative configRoot` 
+        # to resolve the value.
+        configRootToRelative = cfgRoot: lib.attrByPath path {} cfgRoot;
+      };
     };
 
 
