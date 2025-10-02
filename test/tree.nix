@@ -28,7 +28,7 @@ let
 
     subDirNames = builtins.filter
       (contentName: # Filter to get directories that don't start with "_"
-        builtins.substring 0 1 contentName != "_" &&
+        (builtins.substring 0 1 contentName) != "_" &&
         dirContent.${contentName} == "directory"
       )
       (builtins.attrNames dirContent);
