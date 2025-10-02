@@ -41,22 +41,12 @@ let
   buildModule = { file, args } : let
     fileExists = builtins.pathExists file;
 
-    module = (if fileExists
-      then (
-        let fileAttrs = (import file args);
-        in {
-          options = if fileAttrs ? options then fileAttrs.options else {};
-          config = if fileAttrs ? config then fileAttrs.config else {};
-          imports = if fileAttrs ? imports then fileAttrs.imports else [];
-        }
-      )
-
-      else {
-        options = {};
-        config = {};
-        imports = [];
-      }
-    );
+    module = ({
+      # Defaults
+      options = {};
+      config = {};
+      imports = [];
+    } // (if fileExists then (import file args) else {}));
 
   in module;
 
@@ -68,7 +58,7 @@ let
     currentModule = buildModule {
       file = dir + "/default.nix";
       args = args // {
-        # Pass the configuration for this module path directly
+        # Pass the configuration for this module tree directly
         # avoiding infinite recursion by not reading from final config
         moduleConfig = lib.attrByPath path {} configRoot.${moduleRootName} or {};
       };
@@ -108,7 +98,7 @@ let
       # Merge modules using lib.mkMerge for proper module system integration
       config = lib.mkMerge ([ currentModule.config ] ++ submodulesConfigs);
 
-      # Collect all imports from the tree
+      # Collect all imports from the current module and submodules
       imports = currentModule.imports ++ submodulesImports;
     };
 
