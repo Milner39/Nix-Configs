@@ -27,6 +27,8 @@ in
       modulesDir = lib.custom.fromRoot "modules";
       specialArgs = args;
     })
+
+    (import ./gui.nix args)
   ];
 
 
@@ -67,7 +69,6 @@ in
       enable = true;
       preferred = true;  # Sets `$SHELL`
     };
-
     bash.enable = true;
 
     ui.oh-my-posh.enable = true;

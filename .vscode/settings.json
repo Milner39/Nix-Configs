@@ -1,12 +1,30 @@
 {
   "cSpell.words": [
     "attrsets",
+    "bindel",
+    "bindl",
+    "bindm",
+    "brightnessctl",
     "executiontime",
     "ghostty",
+    "HYPRCURSOR",
+    "movefocus",
+    "movetoworkspace",
     "ncspot",
     "nerdfonts",
     "nixpkgs",
+    "nofocus",
     "Nushell",
-    "rprompt"
+    "popin",
+    "pseudotile",
+    "rprompt",
+    "scratchpad",
+    "suppressevent",
+    "togglefloating",
+    "togglespecialworkspace",
+    "togglesplit",
+    "windowrule",
+    "wpctl",
+    "XCURSOR"
   ]
 }
