@@ -28,9 +28,8 @@
 
   in {
     homeConfigurations = {
-      # === finnm@hd-nix-fm ===
 
-      "finnm@hd-nix-fm" = flakeTools.mkHomeConf {
+      "dev" = flakeTools.mkHomeConf {
         username = "finnm";
         system = "x86_64-linux";
         home-manager = home-manager;
@@ -38,11 +37,10 @@
           stable = nixpkgs;
           unstable = nixpkgs-unstable;
         };
-        modules = [ ./src/home.nix { home.enableNixpkgsReleaseCheck = false; }];
+        modules = [ ./src/home.nix ];
         extraSpecialArgs = { inherit inputs; };
       };
 
-      # === finnm@hd-nix-fm ===
     };
   };
 }
