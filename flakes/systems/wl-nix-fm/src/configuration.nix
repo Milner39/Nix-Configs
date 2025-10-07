@@ -5,6 +5,7 @@
   pkgs-unstable,
 
   # specialArgs
+  system,
   hostname,
   inputs,
   ...
@@ -13,7 +14,6 @@
 let
   # Extend args
   args = baseArgs // {
-    system = pkgs.system;
     usersData = (import ./users.nix baseArgs);
   };
 in
@@ -27,7 +27,7 @@ in
     # This is a special function that recursively builds a "tree" of options 
     # based on the directory structure of choice.
     # https://github.com/Milner39/nix-utils
-    (inputs.my-utils.lib.${args.system}.mkOptionTreeFromDir {
+    (inputs.my-utils.lib.${system}.mkOptionTreeFromDir {
       configRoot = config;
       optionTreeName = "modules";
       modulesDir = lib.custom.fromRoot "modules/nixos";

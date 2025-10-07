@@ -122,7 +122,7 @@ let
     });
 
     specialArgs = evaled.specialArgs // {
-      inherit pkgs-unstable hostname;
+      inherit pkgs-unstable system hostname;
       lib = lib-custom;
     };
 

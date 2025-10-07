@@ -129,7 +129,7 @@ let
     });
 
     extraSpecialArgs = evaled.extraSpecialArgs // {
-      inherit pkgs-unstable username;
+      inherit pkgs-unstable system username;
       lib = lib-custom;
     };
 
