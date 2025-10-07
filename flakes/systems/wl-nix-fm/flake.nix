@@ -22,8 +22,7 @@
 
   in {
     nixosConfigurations = {
-      # === wl-nix-fm ===
-      
+
       "wl-nix-fm" = flakeTools.mkNixosConf {
         hostname = "wl-nix-fm";
         system = "x86_64-linux";
@@ -34,8 +33,7 @@
         modules = [ ./src/configuration.nix ];
         specialArgs = { inherit inputs; };
       };
-      
-      # === hd-nix-fm ===
+
     };
   };
 }

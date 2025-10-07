@@ -5,22 +5,35 @@
   pkgs-unstable,
 
   # specialArgs
+  system,
   hostname,
   inputs,
   ...
 } @ baseArgs:
 
 let
-  # Extend args with users data
-  args = baseArgs // { usersData = (import ./users.nix baseArgs); };
+  # Extend args
+  args = baseArgs // {
+    usersData = (import ./users.nix baseArgs);
+  };
 in
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
-    # Add modules
-    (import (lib.custom.fromRoot "modules") args)
+
+    # Import modules that can be configured under the `modules` option.
+    # This is a special function that recursively builds a "tree" of options 
+    # based on the directory structure of choice.
+    # https://github.com/Milner39/nix-utils
+    (inputs.my-utils.lib.${system}.mkOptionTreeFromDir {
+      configRoot = config;
+      optionTreeName = "modules";
+      modulesDir = lib.custom.fromRoot "modules/nixos";
+      specialArgs = args;
+    })
+
     (import ./gui args)
   ];
 
@@ -187,35 +200,6 @@ in
 
   # === Audio ===
 
-
-  # === Nix ===
-
-  nix = {
-    settings = {
-      trusted-users = args.usersData.trusted-users;
-
-      experimental-features = [ "nix-command" "flakes" ];
-      accept-flake-config = true;
-
-      auto-optimise-store = true;
-    };
-
-    # Garbage collection
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 7d";
-    };
-  };
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.05"; # Did you read the comment?
-
-  # === Nix ===
 
 
   # === Global Environment ===
