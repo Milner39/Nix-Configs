@@ -11,8 +11,11 @@
 } @ baseArgs:
 
 let
-  # Extend args with users data
-  args = baseArgs // { usersData = (import ./users.nix baseArgs); };
+  # Extend args
+  args = baseArgs // {
+    system = pkgs.system;
+    usersData = (import ./users.nix baseArgs);
+  };
 in
 {
   imports = [
@@ -24,7 +27,7 @@ in
     # This is a special function that recursively builds a "tree" of options 
     # based on the directory structure of choice.
     # https://github.com/Milner39/nix-utils
-    (inputs.my-utils.lib.${pkgs.system}.mkOptionTreeFromDir {
+    (inputs.my-utils.lib.${args.system}.mkOptionTreeFromDir {
       configRoot = config;
       optionTreeName = "modules";
       modulesDir = lib.custom.fromRoot "modules/nixos";
