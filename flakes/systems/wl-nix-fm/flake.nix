@@ -4,8 +4,8 @@
     nixpkgs.url           =  "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url  =  "github:nixos/nixpkgs/nixos-unstable";
 
-    sops-nix = {
-      url = "github:mic92/sops-nix";
+    my-utils = {
+      url = github:Milner39/nix-utils/release-1.0;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
