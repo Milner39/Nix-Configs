@@ -5,6 +5,7 @@
 
 {
   flake = import ./flake { inherit lib; };
+  users = import ./users { inherit lib; };
 
 
   # Convert string to path relative to root

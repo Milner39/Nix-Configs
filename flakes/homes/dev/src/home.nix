@@ -24,7 +24,7 @@ in
     (inputs.my-utils.lib.${system}.mkOptionTreeFromDir {
       configRoot = config;
       optionTreeName = "modules";
-      modulesDir = lib.custom.fromRoot "modules";
+      modulesDir = lib.custom.fromRoot "modules/home-manager";
       specialArgs = args;
     })
 
