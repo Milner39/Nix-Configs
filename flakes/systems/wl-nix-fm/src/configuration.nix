@@ -24,7 +24,7 @@ in
     # This is a special function that recursively builds a "tree" of options 
     # based on the directory structure of choice.
     # https://github.com/Milner39/nix-utils
-    (inputs.my-utils.lib.${system}.mkOptionTreeFromDir {
+    (inputs.my-utils.lib.${pkgs.system}.mkOptionTreeFromDir {
       configRoot = config;
       optionTreeName = "modules";
       modulesDir = lib.custom.fromRoot "modules/nixos";

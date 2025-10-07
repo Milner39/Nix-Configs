@@ -18,7 +18,7 @@
     ...
   } @ inputs: let
 
-    flakeTools = import ../../lib/flake {};
+    flakeTools = import ../../../lib/flake {};
 
   in {
     nixosConfigurations = {

@@ -126,7 +126,12 @@ let
       lib = lib-custom;
     };
 
-  in nixpkgs.lib.nixosSystem { inherit system pkgs modules specialArgs; };
+  in nixpkgs.lib.nixosSystem { inherit
+    system
+    pkgs
+    modules
+    specialArgs;
+  };
 
   # === Evaluation ===
 
