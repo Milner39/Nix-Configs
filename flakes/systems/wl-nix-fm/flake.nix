@@ -23,7 +23,7 @@
   in {
     nixosConfigurations = {
 
-      "wl-nix-fm" = flakeTools.mkNixosConf {
+      default = flakeTools.mkNixosConf {
         hostname = "wl-nix-fm";
         system = "x86_64-linux";
         nixpkgs = {
