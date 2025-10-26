@@ -80,7 +80,7 @@ in
   modules.programs.terminals = {
     ghostty = {
       enable = true;
-      preferred = true;
+      preferred = true;  # Sets `$TERM_PREFERRED`
     };
   };
 
@@ -89,7 +89,7 @@ in
   modules.programs.text-editors = {
     vscode = {
       enable = true;
-      preferred = true;
+      preferred = true;  # Sets `$EDITOR`
     };
   };
 
