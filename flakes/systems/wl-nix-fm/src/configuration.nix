@@ -142,6 +142,9 @@ in
     networkmanager = {
       enable = true;
       package = pkgs.networkmanager;
+      plugins = with pkgs; [
+        networkmanager-openconnect
+      ];
 
       # WiFi options
       wifi = {
@@ -260,6 +263,7 @@ in
     brave
 
     # Must haves
+    networkmanagerapplet
     pkgs-unstable.fastfetch
     pkgs-unstable.btop
   ];
