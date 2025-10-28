@@ -8,6 +8,7 @@
     "brightnessctl",
     "btop",
     "dmask",
+    "drun",
     "executiontime",
     "fastfetch",
     "fmask",
@@ -34,8 +35,9 @@
     "polkit",
     "popin",
     "powersave",
-    "pulseaudio",
+    "Prfx",
     "pseudotile",
+    "pulseaudio",
     "rprompt",
     "rtkit",
     "rtsx",
@@ -51,8 +53,8 @@
     "vfat",
     "windowrule",
     "wpctl",
+    "XCURSOR",
     "xhci",
-    "xwayland",
-    "XCURSOR"
+    "xwayland"
   ]
 }

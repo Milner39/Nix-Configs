@@ -37,12 +37,18 @@ in
       # Use packages installed by NixOS system config
       package = null;
       portalPackage = null;
+
+      # Conflicts with UWSM
+      systemd.enable = false;
     };
 
 
 
 
     wayland.windowManager.hyprland.settings = {
+      # === Consts ===
+      "$uwsmPrfx" = "uwsm app --";
+
       # === Monitors ===
       monitor = [
         "     ,preferred,auto,1"
@@ -50,7 +56,12 @@ in
       ];
 
       # === Programs ===
+      "$menu" = "rofi";
+      "$menuExec" = "$uwsmPrfx $menu -show drun";
+
       "$terminal" = "\${TERM_PREFERRED}";
+      "$terminalExec" = "$uwsmPrfx $terminal";
+
 
       # === Autostart ===
       exec-once = [
@@ -159,14 +170,13 @@ in
       "$mainMod" = "SUPER";
 
       bind = [
-        "$mainMod, Q, exec, $terminal"
         "$mainMod, C, killactive,"
-        "$mainMod, M, exit,"
-        "$mainMod, E, exec, $fileManager"
-        "$mainMod, V, togglefloating,"
-        "$mainMod, R, exec, $menu"
-        "$mainMod, P, pseudo, # dwindle"
         "$mainMod, J, togglesplit, # dwindle"
+        "$mainMod, V, togglefloating,"
+        "$mainMod, M, exit,"
+        "$mainMod, SPACE, exec, $menuExec"
+        "$mainMod, Q, exec, $terminalExec"
+        "$mainMod, E, exec, $fileManager"
 
         # Move focus with mainMod + arrow keys
         "$mainMod, left, movefocus, l"
