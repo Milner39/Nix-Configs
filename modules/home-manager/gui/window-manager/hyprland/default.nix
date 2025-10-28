@@ -46,8 +46,6 @@ in
 
 
     wayland.windowManager.hyprland.settings = {
-      # === Consts ===
-      "$uwsmPrfx" = "uwsm app --";
 
       # === Monitors ===
       monitor = [
@@ -57,10 +55,10 @@ in
 
       # === Programs ===
       "$menu" = "rofi";
-      "$menuExec" = "$uwsmPrfx $menu -show drun";
+      "$menuExec" = "$menu -show drun";
 
       "$terminal" = "\${TERMINAL}";
-      "$terminalExec" = "$uwsmPrfx $terminal";
+      "$terminalExec" = "$terminal";
 
 
       # === Autostart ===
