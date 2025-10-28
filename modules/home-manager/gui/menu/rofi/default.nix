@@ -28,6 +28,8 @@ in
     programs.rofi = {
       enable = true;
       package = pkg;
+
+      theme = "android_notification";
     };
   };
   # === Config ===

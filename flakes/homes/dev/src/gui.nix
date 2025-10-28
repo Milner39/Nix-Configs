@@ -18,6 +18,6 @@ in
 {
   modules.gui = {
     window-manager.hyprland.enable = true;
-    app-launcher.rofi.enable = true;
+    menu.rofi.enable = true;
   };
 }
