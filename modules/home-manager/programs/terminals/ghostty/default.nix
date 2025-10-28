@@ -21,7 +21,7 @@ in
     };
 
     "preferred" = lib.mkOption {
-      description = "Whether to set `$TERM_PREFERRED` to this terminal.";
+      description = "Whether to set `$TERMINAL` to this terminal.";
       default = false;
       type = lib.types.bool;
     };

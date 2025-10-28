@@ -6,7 +6,7 @@
 }:
 
 {
-  home.sessionVariables."TERM_PREFERRED" = lib.mkIf enable (
+  home.sessionVariables."TERMINAL" = lib.mkIf enable (
     "${package}${binaryPath}"
   );
 }

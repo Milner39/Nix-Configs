@@ -80,7 +80,7 @@ in
   modules.programs.terminals = {
     ghostty = {
       enable = true;
-      preferred = true;  # Sets `$TERM_PREFERRED`
+      preferred = true;  # Sets `$TERMINAL`
     };
   };
 

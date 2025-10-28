@@ -59,7 +59,7 @@ in
       "$menu" = "rofi";
       "$menuExec" = "$uwsmPrfx $menu -show drun";
 
-      "$terminal" = "\${TERM_PREFERRED}";
+      "$terminal" = "\${TERMINAL}";
       "$terminalExec" = "$uwsmPrfx $terminal";
 
 
