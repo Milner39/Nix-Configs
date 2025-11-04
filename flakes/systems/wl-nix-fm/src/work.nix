@@ -17,12 +17,17 @@
     package = pkgs.samba4Full;
   };
 
+  services.resolved = {
+    enable = true;
+  };
+
   networking.networkmanager.plugins = with pkgs; [
     networkmanager-openconnect
   ];
 
   environment.systemPackages = with pkgs; [
     samba4Full
+    rustdesk
     networkmanagerapplet
   ];
 }

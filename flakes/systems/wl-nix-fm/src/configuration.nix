@@ -49,6 +49,9 @@ in
       experimental-features = [ "nix-command" "flakes" ];
       accept-flake-config = true;
 
+      cores = 0;  # Use all
+      max-jobs = "auto";
+
       auto-optimise-store = true;
     };
 
