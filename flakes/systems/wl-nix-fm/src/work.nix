@@ -27,7 +27,7 @@
 
   environment.systemPackages = with pkgs; [
     samba4Full
-    rustdesk
+    pkgs-unstable.rustdesk
     networkmanagerapplet
   ];
 }
