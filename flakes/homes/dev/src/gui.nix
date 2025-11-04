@@ -9,12 +9,8 @@
   system,
   inputs,
   ...
-} @ baseArgs:
+} @ args:
 
-let
-  # Extend args with ...
-  args = baseArgs; # // {};
-in
 {
   modules.gui = {
     window-manager.hyprland.enable = true;
