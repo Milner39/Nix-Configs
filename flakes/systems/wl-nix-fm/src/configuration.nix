@@ -263,6 +263,7 @@ in
     brave
 
     # Must haves
+    brightnessctl
     networkmanagerapplet
     pkgs-unstable.fastfetch
     pkgs-unstable.btop
