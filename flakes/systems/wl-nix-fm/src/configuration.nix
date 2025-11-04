@@ -35,6 +35,7 @@ in
     })
 
     (import ./gui args)
+    (import ./work.nix args)
   ];
 
 
@@ -142,9 +143,6 @@ in
     networkmanager = {
       enable = true;
       package = pkgs.networkmanager;
-      plugins = with pkgs; [
-        networkmanager-openconnect
-      ];
 
       # WiFi options
       wifi = {
@@ -264,7 +262,6 @@ in
 
     # Must haves
     brightnessctl
-    networkmanagerapplet
     pkgs-unstable.fastfetch
     pkgs-unstable.btop
   ];
