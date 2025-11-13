@@ -29,12 +29,13 @@ in
       enable = true;
       package = pkg;
 
-      userName = "Milner39";
-      userEmail = "91906877+Milner39@users.noreply.github.com";
+      settings = {
+        user = {
+          name = "Milner39";
+          email = "91906877+Milner39@users.noreply.github.com";
+        };
 
-      extraConfig = {
         init.defaultBranch = "main";
-
         safe.directory = [ "/etc/nixos" ];
       };
     };
