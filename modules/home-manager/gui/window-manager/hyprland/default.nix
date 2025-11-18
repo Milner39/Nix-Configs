@@ -172,6 +172,7 @@ in
         "$mainMod, J, togglesplit, # dwindle"
         "$mainMod, V, togglefloating,"
         "$mainMod, M, exit,"
+        "$mainMod, L, exec, hyprlock"
         "$mainMod, SPACE, exec, $menuExec"
         "$mainMod, Q, exec, $terminalExec"
         "$mainMod, E, exec, $fileManager"

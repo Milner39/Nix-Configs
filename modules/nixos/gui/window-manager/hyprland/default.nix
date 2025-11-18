@@ -47,6 +47,19 @@ in
     # === Hyprland ===
 
 
+    # === Hyprlock ===
+
+    programs.hyprlock = {
+      enable = true;
+      package = pkgs_.hyprlock;
+    };
+
+    # Let Hyprlock use PAM
+    security.pam.services.hyprlock = {};
+
+    # === Hyprlock ===
+
+
     # === Wayland ===
     # Because Hyprland uses Wayland
 
