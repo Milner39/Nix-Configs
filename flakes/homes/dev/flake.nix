@@ -29,7 +29,7 @@
   in {
     homeConfigurations = {
 
-      "dev" = flakeTools.mkHomeConf {
+      default = flakeTools.mkHomeConf {
         username = "finnm";
         system = "x86_64-linux";
         home-manager = home-manager;
