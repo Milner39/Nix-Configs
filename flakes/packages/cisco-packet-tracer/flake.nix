@@ -19,19 +19,29 @@
     packages = forAllSystems (system:
       let
         pkgs = import nixpkgs { inherit system; };
-        CPT-unpacked = pkgs.stdenv.mkDerivation {
-          name = "${pkg-name}-unpacked";
+
+        # Unpack the `.deb`
+        CPT-deb-unpacked = pkgs.stdenv.mkDerivation {
+          name = "${pkg-name}-deb-unpacked";
           src = CPT-deb;
           nativeBuildInputs = [ pkgs.dpkg ];
+
           unpackPhase = ''
             mkdir -p $out
             dpkg-deb -x $src $out
           '';
         };
-      in {
-        "${pkg-name}" = pkgs.buildFHSEnv {
+
+        # Extract `AppImage`
+        CPT-app-dir = pkgs.appimageTools.extractType2 {
           pname = pkg-name;
           version = "1.0.0";
+          src = "${CPT-deb-unpacked}/opt/pt/packettracer.AppImage";
+        };
+
+      in {
+        "${pkg-name}" = pkgs.buildFHSEnv {
+          name = pkg-name;
 
           targetPkgs = pkgs: with pkgs; [
             zlib
@@ -44,14 +54,13 @@
             qt5.qtbase
             qt5.qtsvg
             qt5.qtdeclarative
+            glibc
           ];
 
-          runScript = "${CPT-unpacked}/opt/pt/packettracer";
-
-          extraOutputsToInstall = [ "dev" "bin" ];
+          runScript = "${CPT-app-dir}/AppRun";
 
           extraMounts = [{
-            source = "${CPT-unpacked}/opt/pt";
+            source = CPT-app-dir;
             target = "/opt/pt";
           }];
         };
