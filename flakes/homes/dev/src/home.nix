@@ -59,7 +59,7 @@ in
 
   # Packages
   home.packages = with pkgs; [
-    ranger
+    yazi
 
     liberation_ttf
 
