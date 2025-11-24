@@ -46,6 +46,9 @@
             glibc
           ];
 
+          # Prevent the Qt hook from attempting auto-wrapping
+          dontWrapQtApps = true;
+
           unpackPhase = ''
             mkdir deb
             dpkg-deb -x $src deb/
