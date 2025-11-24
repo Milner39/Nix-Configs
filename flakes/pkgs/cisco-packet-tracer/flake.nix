@@ -20,21 +20,24 @@
 
           src = CPT-deb;
 
-          nativeBuildInputs = [
-            pkgs.dpkg
-            pkgs.patchelf
-            pkgs.makeWrapper
+          nativeBuildInputs = with pkgs; [
+            dpkg
+            makeWrapper
+            patchelf
           ];
 
-          buildInputs = [
-            pkgs.qt5.full
-            pkgs.zlib
-            pkgs.openssl
-            pkgs.freetype
-            pkgs.fontconfig
-            pkgs.libpulseaudio
-            pkgs.libglvnd
-            pkgs.glibc
+          buildInputs = with pkgs; [
+            qt5.qtbase
+            qt5.qtsvg
+            qt5.qtdeclarative
+            qt5.qtwayland
+            zlib
+            openssl
+            freetype
+            fontconfig
+            libpulseaudio
+            libglvnd
+            glibc
           ];
 
           unpackPhase = ''
