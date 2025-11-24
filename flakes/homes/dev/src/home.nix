@@ -60,6 +60,10 @@ in
   # Packages
   home.packages = with pkgs; [
     ranger
+
+    liberation_ttf
+
+    obsidian
     pkgs-unstable.ncspot
   ];
 
