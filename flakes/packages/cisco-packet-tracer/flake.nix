@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    CPT-deb = {
+    cisco-packet-tracer-deb = {
       url = "path:./CiscoPacketTracer.deb";
       flake = false;
     };
@@ -13,7 +13,7 @@
     forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
 
     pkg-name = "cisco-packet-tracer";
-    CPT-deb = inputs.CPT-deb;
+    CPT-deb = inputs.cisco-packet-tracer-deb;
 
   in {
     packages = forAllSystems (system:

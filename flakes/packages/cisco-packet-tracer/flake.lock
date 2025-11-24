@@ -1,6 +1,6 @@
 {
   "nodes": {
-    "CPT-deb": {
+    "cisco-packet-tracer-deb": {
       "flake": false,
       "locked": {
         "path": "./CiscoPacketTracer.deb",
@@ -30,7 +30,7 @@
     },
     "root": {
       "inputs": {
-        "CPT-deb": "CPT-deb",
+        "cisco-packet-tracer-deb": "cisco-packet-tracer-deb",
         "nixpkgs": "nixpkgs"
       }
     }
