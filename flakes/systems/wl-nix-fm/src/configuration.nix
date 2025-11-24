@@ -250,6 +250,14 @@ in
   # === Audio ===
 
 
+  # === Battery Life ===
+
+  powerManagement.enable = true;
+  services.tlp.enable = true;
+
+  # === Battery Life ===
+
+
 
   # === Global Environment ===
 
