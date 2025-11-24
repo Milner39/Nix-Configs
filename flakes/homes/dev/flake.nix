@@ -14,7 +14,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    cisco-packet-tracer.url = "path:../../pkgs/cisco-packet-tracer";
+    cisco-packet-tracer.url = "path:../../packages/cisco-packet-tracer";
 
   };
 

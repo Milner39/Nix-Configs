@@ -1,15 +1,30 @@
 {
   "nodes": {
-    "cisco-packet-tracer": {
-      "inputs": {
-        "nixpkgs": "nixpkgs"
-      },
+    "CPT-deb": {
+      "flake": false,
       "locked": {
-        "path": "../../pkgs/cisco-packet-tracer",
+        "path": "./CiscoPacketTracer.deb",
         "type": "path"
       },
       "original": {
-        "path": "../../pkgs/cisco-packet-tracer",
+        "path": "./CiscoPacketTracer.deb",
+        "type": "path"
+      },
+      "parent": [
+        "cisco-packet-tracer"
+      ]
+    },
+    "cisco-packet-tracer": {
+      "inputs": {
+        "CPT-deb": "CPT-deb",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "path": "../../packages/cisco-packet-tracer",
+        "type": "path"
+      },
+      "original": {
+        "path": "../../packages/cisco-packet-tracer",
         "type": "path"
       },
       "parent": []
