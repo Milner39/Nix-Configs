@@ -14,37 +14,51 @@
     packages = forAllSystems (system:
       let
         pkgs = import nixpkgs { inherit system; };
-
-        # Extract `.deb` at build time
-        extracted = pkgs.runCommand "${pkg-name}-extracted" {} ''
-          mkdir $out
-          dpkg-deb -x ${CPT-deb} $out/
-        '';
       in {
-        "${pkg-name}" = pkgs.buildFHSUserEnv {
+        "${pkg-name}" = pkgs.stdenv.mkDerivation {
           name = pkg-name;
 
-          # Packages to be available in FHS environment
-          targetPkgs = pkgs: [
-            pkgs.stdenv.cc
+          src = CPT-deb;
+
+          nativeBuildInputs = [
+            pkgs.dpkg
+            pkgs.patchelf
+            pkgs.makeWrapper
+          ];
+
+          buildInputs = [
+            pkgs.qt5.full
             pkgs.zlib
+            pkgs.openssl
             pkgs.freetype
             pkgs.fontconfig
-            pkgs.gtk3
-            pkgs.glibc
-            pkgs.libglvnd
-            pkgs.qt5.full
             pkgs.libpulseaudio
-            pkgs.openssl
+            pkgs.libglvnd
+            pkgs.glibc
           ];
 
-          # Maps extracted packages to correct location in FHS environment
-          extraMounts = [
-            { source = "${extracted}/opt"; target = "/opt"; }
-          ];
+          unpackPhase = ''
+            mkdir deb
+            dpkg-deb -x $src deb/
+          '';
 
-          # The command to run
-          runScript = "${extracted}/opt/pt/bin/PacketTracer";
+          installPhase = ''
+            mkdir -p $out/opt
+            cp -r deb/opt/pt $out/opt/pt
+
+            # Fix interpreter + RPATH for the PacketTracer binary
+            patchelf \
+              --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+              --set-rpath "$out/opt/pt/lib:${pkgs.qt5.full}/lib:${pkgs.glibc}/lib" \
+              $out/opt/pt/bin/PacketTracer
+
+            # Wrap program with QT vars
+            mkdir -p $out/bin
+            makeWrapper $out/opt/pt/bin/PacketTracer $out/bin/${pkg-name} \
+              --prefix QT_PLUGIN_PATH : "$out/opt/pt/plugins" \
+              --prefix QT_QPA_PLATFORM_PLUGIN_PATH : "$out/opt/pt/plugins/platforms" \
+              --set LD_LIBRARY_PATH "$out/opt/pt/lib"
+          '';
         };
       });
   };
