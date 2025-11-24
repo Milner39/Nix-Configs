@@ -1,5 +1,17 @@
 {
   "nodes": {
+    "CPT-deb": {
+      "flake": false,
+      "locked": {
+        "path": "./CiscoPacketTracer.deb",
+        "type": "path"
+      },
+      "original": {
+        "path": "./CiscoPacketTracer.deb",
+        "type": "path"
+      },
+      "parent": []
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1763835633,
@@ -18,6 +30,7 @@
     },
     "root": {
       "inputs": {
+        "CPT-deb": "CPT-deb",
         "nixpkgs": "nixpkgs"
       }
     }
