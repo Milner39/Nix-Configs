@@ -19,58 +19,41 @@
     packages = forAllSystems (system:
       let
         pkgs = import nixpkgs { inherit system; };
+        CPT-unpacked = pkgs.stdenv.mkDerivation {
+          name = "${pkg-name}-unpacked";
+          src = CPT-deb;
+          nativeBuildInputs = [ pkgs.dpkg ];
+          unpackPhase = ''
+            mkdir -p $out
+            dpkg-deb -x $src $out
+          '';
+        };
       in {
-        "${pkg-name}" = pkgs.stdenv.mkDerivation {
+        "${pkg-name}" = pkgs.buildFHSEnv {
           pname = pkg-name;
           version = "1.0.0";
 
-          src = CPT-deb;
-
-          nativeBuildInputs = with pkgs; [
-            dpkg
-            makeWrapper
-            patchelf
-          ];
-
-          buildInputs = with pkgs; [
+          targetPkgs = pkgs: with pkgs; [
+            zlib
+            openssl
+            fontconfig
+            freetype
+            libglvnd
+            libpulseaudio
+            qt5.qtwayland
             qt5.qtbase
             qt5.qtsvg
             qt5.qtdeclarative
-            qt5.qtwayland
-            zlib
-            openssl
-            freetype
-            fontconfig
-            libpulseaudio
-            libglvnd
-            glibc
           ];
 
-          # Prevent the Qt hook from attempting auto-wrapping
-          dontWrapQtApps = true;
+          runScript = "${CPT-unpacked}/opt/pt/packettracer";
 
-          unpackPhase = ''
-            mkdir deb
-            dpkg-deb -x $src deb/
-          '';
+          extraOutputsToInstall = [ "dev" "bin" ];
 
-          installPhase = ''
-            mkdir -p $out/opt
-            cp -r deb/opt/pt $out/opt/pt
-
-            # Fix interpreter + RPATH for the PacketTracer binary
-            patchelf \
-              --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-              --set-rpath "$out/opt/pt/lib:${pkgs.qt5.qtbase}/lib:${pkgs.qt5.qtsvg}/lib:${pkgs.qt5.qtdeclarative}/lib:${pkgs.qt5.qtwayland}/lib:${pkgs.glibc}/lib"
-              $out/opt/pt/bin/PacketTracer
-
-            # Wrap program with QT vars
-            mkdir -p $out/bin
-            makeWrapper $out/opt/pt/bin/PacketTracer $out/bin/${pkg-name} \
-              --prefix QT_PLUGIN_PATH : "$out/opt/pt/plugins" \
-              --prefix QT_QPA_PLATFORM_PLUGIN_PATH : "$out/opt/pt/plugins/platforms" \
-              --set LD_LIBRARY_PATH "$out/opt/pt/lib"
-          '';
+          extraMounts = [{
+            source = "${CPT-unpacked}/opt/pt";
+            target = "/opt/pt";
+          }];
         };
       });
   };
