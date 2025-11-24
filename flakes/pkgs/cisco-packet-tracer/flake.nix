@@ -16,7 +16,8 @@
         pkgs = import nixpkgs { inherit system; };
       in {
         "${pkg-name}" = pkgs.stdenv.mkDerivation {
-          name = pkg-name;
+          pname = pkg-name;
+          version = "1.0.0";
 
           src = CPT-deb;
 
@@ -52,7 +53,7 @@
             # Fix interpreter + RPATH for the PacketTracer binary
             patchelf \
               --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-              --set-rpath "$out/opt/pt/lib:${pkgs.qt5.full}/lib:${pkgs.glibc}/lib" \
+              --set-rpath "$out/opt/pt/lib:${pkgs.qt5.qtbase}/lib:${pkgs.qt5.qtsvg}/lib:${pkgs.qt5.qtdeclarative}/lib:${pkgs.qt5.qtwayland}/lib:${pkgs.glibc}/lib"
               $out/opt/pt/bin/PacketTracer
 
             # Wrap program with QT vars
