@@ -12,7 +12,8 @@
     systems = [ "x86_64-linux" ];
     forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
 
-    pkg-name = "cisco-packet-tracer";
+    pname = "cisco-packet-tracer";
+    version = "1.0.0";
     CPT-deb = inputs.cisco-packet-tracer-deb;
 
   in {
@@ -22,7 +23,9 @@
 
         # Unpack the `.deb`
         CPT-deb-unpacked = pkgs.stdenv.mkDerivation {
-          name = "${pkg-name}-deb-unpacked";
+          pname = "${pname}-deb-unpacked";
+          version = version;
+
           src = CPT-deb;
           nativeBuildInputs = [ pkgs.dpkg ];
 
@@ -34,35 +37,61 @@
 
         # Extract `AppImage`
         CPT-app-dir = pkgs.appimageTools.extractType2 {
-          pname = pkg-name;
-          version = "1.0.0";
+          pname = "${pname}-app-image";
+          version = version;
           src = "${CPT-deb-unpacked}/opt/pt/packettracer.AppImage";
         };
 
       in {
-        "${pkg-name}" = pkgs.buildFHSEnv {
-          name = pkg-name;
+        "${pname}" = pkgs.stdenv.mkDerivation {
+          pname = pname;
+          version = version;
 
-          targetPkgs = pkgs: with pkgs; [
+          nativeBuildInputs = with pkgs; [
+            autoPatchelfHook
+          ];
+          dontWrapQtApps = true;
+
+          buildInputs = with pkgs; [
             zlib
-            openssl
-            fontconfig
+            libpng
+            libxkbfile
             freetype
-            libglvnd
-            libpulseaudio
-            qt5.qtwayland
-            qt5.qtbase
-            qt5.qtsvg
-            qt5.qtdeclarative
-            glibc
+            fontconfig
+            nss
+            nspr
+            alsa-lib
+            xorg.libXext
+            xorg.libX11
+            xorg.libXrender
+            xorg.libXi
+            xorg.libXtst
+            xorg.libXrandr
+            libdrm
+            wayland
+
+            xz
+            qt6.qttools
+            pulseaudio
+            xorg.libXdamage
+            mtdev
+            tslib
+            libinput
           ];
 
-          runScript = "${CPT-app-dir}/AppRun";
+          src = CPT-app-dir;
 
-          extraMounts = [{
-            source = CPT-app-dir;
-            target = "/opt/pt";
-          }];
+          installPhase = ''
+            mkdir -p $out/opt/pt
+            cp -r . $out/opt/pt/
+
+            mkdir -p $out/bin
+            cat > $out/bin/${pname} <<EOF
+            #!${pkgs.bash}/bin/bash
+            exec $out/opt/pt/AppRun "\$@"
+            EOF
+            chmod +x $out/bin/${pname}
+          '';
         };
       });
   };
