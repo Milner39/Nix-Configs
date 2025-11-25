@@ -72,6 +72,7 @@
             [Desktop Entry]
             Type=Application
             Name=Cisco Packet Tracer
+            GenericName=Network Simulator
             Comment=Network simulation tool
             Exec=$out/bin/cisco-packet-tracer
             Icon=cisco-packet-tracer
