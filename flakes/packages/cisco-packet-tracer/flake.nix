@@ -51,7 +51,7 @@
             echo "Found .AppImage file: $appimage"
 
             mkdir -p $out
-            cp "$appimage" "$out/packettracer.AppImage"
+            cp "$appimage" "$out/cisco-packet-tracer.AppImage"
           '';
         };
 
@@ -59,11 +59,26 @@
           pname = pname;
           version = version;
 
-          src = "${CPT-appimage}/packettracer.AppImage";
+          src = "${CPT-appimage}/cisco-packet-tracer.AppImage";
           extraPkgs = pkgs: with pkgs; [
             libpng
             xorg.libxkbfile
           ];
+
+          extraInstallCommands = ''
+            # Add a desktop entry
+            mkdir -p "$out/share/applications"
+            cat > "$out/share/applications/cisco-packet-tracer.desktop" <<EOF
+            [Desktop Entry]
+            Type=Application
+            Name=Cisco Packet Tracer
+            Comment=Network simulation tool
+            Exec=$out/bin/cisco-packet-tracer
+            Icon=cisco-packet-tracer
+            Terminal=false
+            Categories=Network;Education;
+            EOF
+          '';
         };
       in {
         "${pname}" = CPT;
