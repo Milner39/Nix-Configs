@@ -60,7 +60,10 @@
           version = version;
 
           src = "${CPT-appimage}/packettracer.AppImage";
-          extraPkgs = pkgs: with pkgs; [];
+          extraPkgs = pkgs: with pkgs; [
+            libpng
+            xorg.libxkbfile
+          ];
         };
       in {
         "${pname}" = CPT;
