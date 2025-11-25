@@ -18,14 +18,16 @@
     "cisco-packet-tracer-deb": {
       "flake": false,
       "locked": {
-        "path": "../../packages/cisco-packet-tracer/CiscoPacketTracer.deb",
+        "path": "./CiscoPacketTracer.deb",
         "type": "path"
       },
       "original": {
-        "path": "../../packages/cisco-packet-tracer/CiscoPacketTracer.deb",
+        "path": "./CiscoPacketTracer.deb",
         "type": "path"
       },
-      "parent": []
+      "parent": [
+        "cisco-packet-tracer"
+      ]
     },
     "flake-utils": {
       "inputs": {
