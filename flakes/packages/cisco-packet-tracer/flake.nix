@@ -15,24 +15,20 @@
     pname = "cisco-packet-tracer";
     version = "1.0.0";
     CPT-deb = inputs.cisco-packet-tracer-deb;
-
   in {
     packages = forAllSystems (system:
       let
         pkgs = import nixpkgs { inherit system; };
+        appimageTools = pkgs.appimageTools;
 
-        CPT = pkgs.stdenv.mkDerivation {
-          pname = pname;
+        CPT-appimage = pkgs.stdenv.mkDerivation {
+          pname = "${pname}-appimage";
           version = version;
 
           src = CPT-deb;
 
           nativeBuildInputs = with pkgs; [
             dpkg
-            patchelf
-            makeWrapper
-            libarchive
-            squashfsTools
           ];
 
           unpackPhase = ''
@@ -42,54 +38,29 @@
             echo "Unpacked .deb file"
           '';
 
-          buildPhase = ''
-            echo "Finding AppImage"
-            appimage="$(find deb -name '*.AppImage' | head -n1)"
-            echo "AppImage found: $appimage"
-
-            echo "Locating SquashFS magic offset"
-            offset=$(grep -oba 'hsqs' "$appimage" | head -n1 | cut -d: -f1)
-            if [ -z "$offset" ]; then
-              echo "ERROR: Could not locate SquashFS magic in AppImage"
-              exit 1
-            fi
-            echo "SquashFS starts at byte offset: $offset"
-
-            echo "Extracting SquashFS into a temporary file"
-            dd if="$appimage" of=squashfs.img bs=1M skip=$((offset/1048576)) status=progress
-
-            echo "Extracting squashfs.img"
-            mkdir appdir
-            ${pkgs.squashfsTools}/bin/unsquashfs -d appdir/AppDir squashfs.img
-            echo "Extraction complete"
-          '';
+          buildPhase = "true";
 
           installPhase = ''
-            mkdir -p $out/bin
-            mkdir -p $out/share/applications
-            mkdir -p $out/share/icons/hicolor/256x256/apps
-
-            # Install the extracted AppDir
-            cp -r appdir/AppDir $out/packettracer
-
-            # Main executable inside AppDir
-            exe="$out/packettracer/AppRun"
-
-            # Wrapper (makes it discoverable in PATH)
-            makeWrapper "$exe" "$out/bin/packettracer" \
-              --set APPDIR "$out/packettracer"
-
-            # Desktop entry
-            cp $out/packettracer/*.desktop $out/share/applications/packettracer.desktop
-            substituteInPlace $out/share/applications/packettracer.desktop \
-              --replace "/usr/bin/packettracer" "$out/bin/packettracer"
-
-            # Try copying icon (PacketTracer usually ships a PNG)
-            icon=$(find $out/packettracer -name '*.png' | head -n1 || true)
-            if [ -n "$icon" ]; then
-              cp "$icon" $out/share/icons/hicolor/256x256/apps/packettracer.png
+            echo "Finding .AppImage file"
+            appimage="$(find deb -name '*.AppImage' | head -n1)"
+            if [ -z "$appimage" ]; then
+              echo "ERROR: No AppImage found in deb"
+              ls -R deb || true
+              exit 1
             fi
+            echo "Found .AppImage file: $appimage"
+
+            mkdir -p $out
+            cp "$appimage" "$out/packettracer.AppImage"
           '';
+        };
+
+        CPT = appimageTools.wrapType2 {
+          pname = pname;
+          version = version;
+
+          src = "${CPT-appimage}/packettracer.AppImage";
+          extraPkgs = pkgs: with pkgs; [];
         };
       in {
         "${pname}" = CPT;
