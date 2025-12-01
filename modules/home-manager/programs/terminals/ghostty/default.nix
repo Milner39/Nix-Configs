@@ -34,6 +34,10 @@ in
     programs.ghostty = {
       enable = true;
       package = pkg;
+
+      settings = {
+        command = "$SHELL";
+      };
     };
   };
   # === Config ===
