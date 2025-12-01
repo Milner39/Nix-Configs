@@ -9,7 +9,7 @@ let
   # Get module configuration
   cfg = moduleConfig;
 
-  pkg = pkgs.plasma5Packages.sddm;
+  pkg = pkgs.kdePackages.sddm;
 in
 {
   # === Options ===
