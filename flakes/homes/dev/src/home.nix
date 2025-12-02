@@ -64,6 +64,8 @@ in
     liberation_ttf
 
     obsidian
+    obs-studio
+    mpv
     pkgs-unstable.ncspot
 
     inputs.cisco-packet-tracer.packages.${system}.cisco-packet-tracer
