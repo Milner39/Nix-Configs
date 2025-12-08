@@ -9,7 +9,6 @@ let
   # Get module configuration
   cfg = moduleConfig;
 
-  # Lets me switch everything to `pkgs-unstable` in one change
   pkgs_ = pkgs;
 in
 {

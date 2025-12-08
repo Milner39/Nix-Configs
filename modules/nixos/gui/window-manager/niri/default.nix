@@ -9,7 +9,6 @@ let
   # Get module configuration
   cfg = moduleConfig;
 
-  # Lets me switch everything to `pkgs-unstable` in one change
   pkgs_ = pkgs;
 in
 {
@@ -30,9 +29,22 @@ in
 
     # === Niri ===
 
-    programs.niri = {
-      enable = true;
-      package = pkgs_.niri;
+    environment.systemPackages = with pkgs_; [
+      niri
+
+      # Include Niri's default terminal so default shortcut works
+      alacritty
+    ];
+
+    programs.uwsm.enable = true;
+    programs.uwsm.waylandCompositors.niri = {
+      prettyName = "Niri";
+      comment = "Niri compositor managed by UWSM";
+      binPath = lib.getExe (
+        pkgs_.writeShellScriptBin "niri-instance" ''
+          /run/current-system/sw/bin/niri --session
+      ''
+      );
     };
 
     # === Niri ===
