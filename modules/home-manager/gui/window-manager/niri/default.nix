@@ -33,7 +33,7 @@ in
         menuExec = "${menu} -show drun";
 
         terminal = "\$TERMINAL";
-        terminalExec = ${terminal};
+        terminalExec = "${terminal}";
       in ''
         // Monitors
         output {
