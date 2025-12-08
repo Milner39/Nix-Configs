@@ -43,6 +43,21 @@ in
           scale 1
         }
 
+        // Keyboard, Mouse, Touchpad
+        input {
+          keyboard {
+            xkb {
+              layout "gb"
+            }
+          }
+          mouse {
+          }
+          touchpad {
+            tap
+            natural-scroll
+          }
+        }
+
         // Cursor
         cursor {
           xcursor-size 24
