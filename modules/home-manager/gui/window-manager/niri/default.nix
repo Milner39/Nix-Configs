@@ -40,7 +40,7 @@ in
           scale 1
         }
         output "eDP-1" {
-          scale 1.5
+          scale 1
         }
 
         // Cursor
@@ -85,9 +85,9 @@ in
         binds {
           Mod+C repeat=false { close-window; }
           Mod+M { quit; }
-          Mod+L { spawn "swaylock"; }
-          Mod+Space { spawn "${menuExec}"; }
-          Mod+Q { spawn "${terminalExec}"; }
+          Mod+L { spawn-sh "swaylock"; }
+          Mod+Space { spawn-sh "${menuExec}"; }
+          Mod+Q { spawn-sh "${terminalExec}"; }
 
           // Escape an application inhibiting keyboard shortcuts (remote desktop software)
           Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
