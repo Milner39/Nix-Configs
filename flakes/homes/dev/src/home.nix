@@ -59,8 +59,6 @@ in
 
   # Packages
   home.packages = with pkgs; [
-    yazi
-
     liberation_ttf
 
     obsidian
@@ -93,6 +91,14 @@ in
   };
 
 
+  # File Explorers
+  modules.programs.file-explorers = {
+    yazi = {
+      enable = true;
+    };
+  };
+
+
   # Text Editors
   modules.programs.text-editors = {
     vscode = {
@@ -103,7 +109,9 @@ in
 
 
   # Dev Tools
-  modules.programs.dev.git.enable = true;
+  modules.programs.dev = {
+    git.enable = true;
+  };
 
 
   # Fonts
