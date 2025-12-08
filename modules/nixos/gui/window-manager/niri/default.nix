@@ -31,6 +31,7 @@ in
 
     environment.systemPackages = with pkgs_; [
       niri
+      xwayland-satellite
 
       # Include Niri's default terminal so default shortcut works
       alacritty
