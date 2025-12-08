@@ -26,6 +26,8 @@ in
 
   # === Config ===
   config = lib.mkIf cfg.enable {
+    modules.gui.window-manager.compositor.wayland.enable = true;
+
     # === Hyprland ===
 
     programs.hyprland = {
@@ -58,29 +60,6 @@ in
     security.pam.services.hyprlock = {};
 
     # === Hyprlock ===
-
-
-    # === Wayland ===
-    # Because Hyprland uses Wayland
-
-    # X11 compatibility
-    programs.hyprland.xwayland.enable = true;
-
-    # Tell electron apps to use Wayland
-    environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-    # === Wayland ===
-
-
-    # === NVIDIA Fixes ===
-
-    # Needed for Wayland
-    hardware.nvidia.modesetting.enable = true;
-
-    # Fix mouse flickering
-    environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
-
-    # === NVIDIA Fixes ===
   };
   # === Config ===
 }
