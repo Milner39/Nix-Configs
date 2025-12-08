@@ -36,7 +36,7 @@ in
         terminalExec = "${terminal}";
       in ''
         // Monitors
-        output {
+        output "" {
           scale 1
         }
         output "eDP-1" {
@@ -72,8 +72,8 @@ in
 
           border {
             width 2
-            active-gradient from="rgba(33ccffee)" to="rgba(00ff99ee)" angle=45
-            inactive-color "rgba(595959aa)"
+            active-gradient from="#33ccffee" to="#00ff99ee" angle=45
+            inactive-color "#595959aa"
           }
         }
 
@@ -118,7 +118,7 @@ in
           Mod+7         { focus-workspace 7;  }
           Mod+8         { focus-workspace 8;  }
           Mod+9         { focus-workspace 9;  }
-          Mod+10        { focus-workspace 10; }
+          Mod+0         { focus-workspace 10; }
           Mod+Page_Up   { focus-workspace-up; }
           Mod+Page_Down { focus-workspace-down; }
           Mod+WheelScrollUp   cooldown-ms=150 { focus-workspace-up; }
@@ -134,9 +134,9 @@ in
           Mod+Shift+7         { move-column-to-workspace 7;  }
           Mod+Shift+8         { move-column-to-workspace 8;  }
           Mod+Shift+9         { move-column-to-workspace 9;  }
-          Mod+Shift+10        { move-column-to-workspace 10; }
-          Mod+Shift+Page_Down { move-column-to-workspace-down; }
+          Mod+Shift+0         { move-column-to-workspace 10; }
           Mod+Shift+Page_Up   { move-column-to-workspace-up; }
+          Mod+Shift+Page_Down { move-column-to-workspace-down; }
           Mod+Shift+WheelScrollUp   cooldown-ms=150 { focus-workspace-up; }
           Mod+Shift+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
 
