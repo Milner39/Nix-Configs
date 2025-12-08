@@ -77,7 +77,7 @@ in
           struts {
             left 5
             right 5
-            top -5
+            top 5
             bottom 5
           }
 
