@@ -66,7 +66,7 @@ in
 
       ];
 
-      # === Environment Variables ===
+      # === Cursor ===
       env = [
         "XCURSOR_SIZE   ,24"
         "HYPRCURSOR_SIZE,24"
@@ -234,9 +234,9 @@ in
 
       bindl = [
         # Media controls
-        ",XF86AudioNext, exec, playerctl next"
-        ",XF86AudioPause, exec, playerctl play-pause"
         ",XF86AudioPlay, exec, playerctl play-pause"
+        ",XF86AudioPause, exec, playerctl play-pause"
+        ",XF86AudioNext, exec, playerctl next"
         ",XF86AudioPrev, exec, playerctl previous"
       ];
 
