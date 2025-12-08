@@ -58,11 +58,6 @@ in
           }
         }
 
-        // Cursor
-        cursor {
-          xcursor-size 24
-        }
-
         prefer-no-csd
         layout {
           preset-column-widths {

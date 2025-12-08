@@ -66,12 +66,6 @@ in
 
       ];
 
-      # === Cursor ===
-      env = [
-        "XCURSOR_SIZE   ,24"
-        "HYPRCURSOR_SIZE,24"
-      ];
-
       # === UI & UX ===
       general = {
         gaps_in = "5";
