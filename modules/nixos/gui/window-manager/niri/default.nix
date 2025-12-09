@@ -50,7 +50,7 @@ in
       binPath = lib.getExe (
         pkgs_.writeShellScriptBin "niri-instance" ''
           exec ${lib.getExe pkgs_.niri} --session
-      ''
+        ''
       );
     };
 
