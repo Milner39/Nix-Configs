@@ -65,6 +65,17 @@ rArrow = ">"
       style = "full"
 
 
+  # Nix Shell
+  [[blocks.segments]]
+    type = "text"
+    style = "plain"
+    foreground = "p:clarity"
+    template = "{{if .Env.IN_NIX_SHELL }} 󱄅 󱧘 {{end}}"
+
+    [blocks.segments.if]
+      env_exists = "IN_NIX_SHELL"
+
+
   # Git
   [[blocks.segments]]
     type = "git"
