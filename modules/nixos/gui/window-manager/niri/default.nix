@@ -37,13 +37,19 @@ in
       alacritty
     ];
 
+    xdg.portal = {
+      enable = true;
+      extraPortals = [ pkgs_.xdg-desktop-portal-gtk ];
+      config.common.default = lib.mkDefault "gtk";
+    };
+
     programs.uwsm.enable = true;
     programs.uwsm.waylandCompositors.niri = {
       prettyName = "Niri";
       comment = "Niri compositor managed by UWSM";
       binPath = lib.getExe (
         pkgs_.writeShellScriptBin "niri-instance" ''
-          /run/current-system/sw/bin/niri --session
+          exec ${lib.getExe pkgs_.niri} --session
       ''
       );
     };
