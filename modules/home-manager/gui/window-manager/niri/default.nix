@@ -45,6 +45,9 @@ in
 
         // Keyboard, Mouse, Touchpad
         input {
+          mod-key "Super"
+          mod-key-nested "Alt"
+
           keyboard {
             xkb {
               layout "gb"
