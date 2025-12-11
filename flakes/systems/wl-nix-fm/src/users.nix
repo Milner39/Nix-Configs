@@ -28,7 +28,11 @@ lib.custom.users.mkUsersData {
       settings = {
         description = "Finn Milner";
         isNormalUser = true;
-        extraGroups = [ "wheel" "networkmanager" ];
+        extraGroups = [
+          "wheel"  # Sudo
+          "networkmanager"  # Network Config
+          "libvirtd" "kvm"  # Virtualisation
+        ];
 
         openssh.authorizedKeys.keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHGydLwle8HWBT5Y6vuaEK4th4R/2h0Ih+j5WDoERGbD"

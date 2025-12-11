@@ -36,6 +36,7 @@ in
 
     (import ./gui args)
     (import ./work.nix args)
+    (import ./vms.nix args)
   ];
 
 
