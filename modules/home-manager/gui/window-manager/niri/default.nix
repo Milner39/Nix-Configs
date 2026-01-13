@@ -98,7 +98,7 @@ in
         binds {
           Mod+C repeat=false { close-window; }
           Mod+M { quit; }
-          Mod+L { spawn-sh "swaylock"; }
+          Mod+L { spawn-sh "hyprlock"; }
           Mod+Space { spawn-sh "${menuExec}"; }
           Mod+Q { spawn-sh "${terminalExec}"; }
 
