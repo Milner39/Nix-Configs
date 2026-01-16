@@ -30,4 +30,11 @@
     pkgs-unstable.rustdesk
     networkmanagerapplet
   ];
+
+  programs.obs-studio = {
+    enable = true;
+    package = pkgs.obs-studio;
+
+    enableVirtualCamera = true;
+  };
 }
