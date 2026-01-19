@@ -63,6 +63,7 @@ in
 
     obsidian
     obs-studio
+    davinci-resolve
     mpv
     pkgs-unstable.ncspot
 
