@@ -41,7 +41,15 @@ in
       enable = true;
       extraPortals = [ pkgs_.xdg-desktop-portal-gtk ];
       config.common.default = lib.mkDefault "gtk";
+
+      # For screen recording
+      wlr.enable = true;
     };
+
+    # === Niri ===
+
+
+    # === UWSM ===
 
     programs.uwsm.enable = true;
     programs.uwsm.waylandCompositors.niri = {
@@ -54,7 +62,7 @@ in
       );
     };
 
-    # === Niri ===
+    # === UWSM ===
   };
   # === Config ===
 }

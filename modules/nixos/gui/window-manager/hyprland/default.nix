@@ -34,8 +34,6 @@ in
       package = pkgs_.hyprland;
       portalPackage = pkgs_.xdg-desktop-portal-hyprland;
 
-      xwayland.enable = true;
-
       # Because NixOS uses SystemD so use UWSM for better support
       withUWSM = true;
     };

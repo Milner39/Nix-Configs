@@ -24,8 +24,15 @@ in
   # === Config ===
   config = lib.mkIf cfg.enable {
 
+    # Add X11 fallback
+    environment.systemPackages = [ pkgs.xwayland ];
+
+
     # Tell electron apps to use Wayland
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+    # Prioritise Wayland, fallback to X11
+    environment.sessionVariables.QT_QPA_PLATFORM = "wayland;xcb";
 
 
     # === NVIDIA Fixes ===
