@@ -39,11 +39,11 @@ in
 
     xdg.portal = {
       enable = true;
-      extraPortals = [ pkgs_.xdg-desktop-portal-gtk ];
-      config.common.default = lib.mkDefault "gtk";
-
-      # For screen recording
-      wlr.enable = true;
+      extraPortals = with pkgs_; [
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-gnome
+      ];
+      config.common.default = lib.mkDefault [ "gnome" ];
     };
 
     # === Niri ===
@@ -57,7 +57,7 @@ in
       comment = "Niri compositor managed by UWSM";
       binPath = lib.getExe (
         pkgs_.writeShellScriptBin "niri-instance" ''
-          exec ${lib.getExe pkgs_.niri} --session
+          exec ${pkgs_.niri}/bin/niri-session
         ''
       );
     };
