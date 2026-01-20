@@ -39,11 +39,16 @@ in
 
     xdg.portal = {
       enable = true;
+
       extraPortals = with pkgs_; [
         xdg-desktop-portal-gtk
         xdg-desktop-portal-gnome
       ];
-      config.common.default = lib.mkDefault [ "gnome" ];
+
+      config.common = {
+        default = [ "gtk" ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
+      };
     };
 
     # === Niri ===
