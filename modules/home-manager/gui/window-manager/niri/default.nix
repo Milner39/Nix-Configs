@@ -34,6 +34,8 @@ in
 
         terminal = "\$TERMINAL";
         terminalExec = "${terminal}";
+
+        screenshotExec = "slurp | grim -g - - | wl-copy";
       in ''
         // Monitors
         output "" {
@@ -101,6 +103,7 @@ in
           Mod+L { spawn-sh "hyprlock"; }
           Mod+Space { spawn-sh "${menuExec}"; }
           Mod+Q { spawn-sh "${terminalExec}"; }
+          Mod+S { spawn-sh "${screenshotExec}"; }
 
           // Escape an application inhibiting keyboard shortcuts (remote desktop software)
           Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
