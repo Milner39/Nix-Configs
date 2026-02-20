@@ -122,4 +122,8 @@ in
       jetbrains-mono
     ];
   };
+
+
+  # Other
+  modules.gaming.installers.steam.enable = true;
 }
