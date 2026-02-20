@@ -28,15 +28,12 @@ in
     # Add video driver (DEPRECATED)
     # services.xserver.videoDrivers = [ "intel" ];
 
-    # OpenGL
-    hardware.opengl = {
+    hardware.graphics = {
       enable = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
 
-      extraPackages = with pkgs; [
-      ];
-      extraPackages32 = with pkgs; [
-      ];
+      extraPackages = with pkgs; [];
+      extraPackages32 = with pkgs; [];
     };
   };
   # === Config ===
