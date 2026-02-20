@@ -34,12 +34,8 @@ in
       driSupport32Bit = true;
 
       extraPackages = with pkgs; [
-        mesa
-        vulkan-loader
       ];
       extraPackages32 = with pkgs; [
-        mesa
-        vulkan-loader
       ];
     };
   };
