@@ -85,16 +85,18 @@ in
     services.xserver.videoDrivers = [ "nvidia" ];
 
     # OpenGL
-    hardware.opengl.enable = true;
-    hardware.opengl.driSupport = true;
-    hardware.opengl.driSupport32Bit = true;
-    hardware.opengl.extraPackages = with pkgs; [
-      vulkan-loader
-      vulkan-validation-layers
-    ];
-    hardware.opengl.extraPackages32 = with pkgs; [
-      vulkan-loader
-    ];
+    hardware.opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+
+      extraPackages = with pkgs; [
+        vulkan-loader
+      ];
+      extraPackages32 = with pkgs; [
+        vulkan-loader
+      ];
+    };
   };
   # === Config ===
 }

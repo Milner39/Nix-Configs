@@ -135,6 +135,10 @@ in
   # For proprietary firmware (fix WiFi cards)
   hardware.enableRedistributableFirmware = true;
 
+  modules.hardware.video.intel = {
+    enable = true;
+  };
+
   # === Hardware ===
 
 
