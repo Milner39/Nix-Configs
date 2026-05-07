@@ -74,7 +74,7 @@
             Name=Cisco Packet Tracer
             GenericName=Network Simulator
             Comment=Network simulation tool
-            Exec=$out/bin/cisco-packet-tracer
+            Exec=${pkgs.util-linux}/bin/unshare --user --map-current-user --net $out/bin/cisco-packet-tracer
             Icon=cisco-packet-tracer
             Terminal=false
             Categories=Network;Education;
