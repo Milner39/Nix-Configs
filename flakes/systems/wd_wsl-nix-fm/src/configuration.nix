@@ -81,8 +81,16 @@ in
 
   wsl.enable = true;
   wsl.defaultUser = "nixos";
+
+  # Hardware Acceleration
   wsl.useWindowsDriver = true;
   hardware.graphics.enable = true;
+  environment.sessionVariables.LD_LIBRARY_PATH = [
+    "/run/opengl-driver/lib"
+    "${pkgs.openssl.out}/lib"
+  ];
+  environment.sessionVariables.GALLIUM_DRIVER = "d3d12";
+  environment.sessionVariables.MESA_D3D12_DEFAULT_ADAPTER_NAME = "Nvidia";
 
   # For VSCode
   programs.nix-ld.enable = true;
