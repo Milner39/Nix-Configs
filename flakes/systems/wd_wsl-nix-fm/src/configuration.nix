@@ -81,6 +81,8 @@ in
 
   wsl.enable = true;
   wsl.defaultUser = "nixos";
+  wsl.useWindowsDriver = true;
+  hardware.graphics.enable = true;
 
   # For VSCode
   programs.nix-ld.enable = true;
