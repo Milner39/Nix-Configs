@@ -85,6 +85,11 @@ in
   # Hardware Acceleration
   wsl.useWindowsDriver = true;
   hardware.graphics.enable = true;
+  hardware.graphics.extraPackages = with pkgs; [
+    mesa
+    libvdpau-va-gl
+    libva-vdpau-driver
+  ];
   environment.sessionVariables.LD_LIBRARY_PATH = [
     "/run/opengl-driver/lib"
     "${pkgs.openssl.out}/lib"
