@@ -54,6 +54,12 @@ let
         };
       };
 
+      "overlays" = lib.mkOption {
+        description = "Nixpkgs overlays to apply to the system package sets.";
+        default = [];
+        type = lib.types.listOf lib.types.raw;
+      };
+
       "modules" = lib.mkOption {
         description = "A list of NixOS modules to include in the system evaluation.";
         default = [];
@@ -105,11 +111,13 @@ let
     nixpkgs-unstable  =  evaled.nixpkgs.unstable or evaled.nixpkgs.stable;
     # Fallback to stable packages if unstable packages not provided ^
 
+    overlays          =  evaled.overlays;
+
     pkgs              =  import nixpkgs {
-      inherit system; config.allowUnfree = allowUnfree;
+      inherit system overlays; config.allowUnfree = allowUnfree;
     };
     pkgs-unstable     =  import nixpkgs-unstable {
-      inherit system; config.allowUnfree = allowUnfree;
+      inherit system overlays; config.allowUnfree = allowUnfree;
     };
     # == Pkgs ===
 

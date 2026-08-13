@@ -35,6 +35,18 @@
           stable = nixpkgs;
           unstable = nixpkgs-unstable;
         };
+
+        overlays = [
+          (final: prev: {
+            # https://lists.buildroot.org/pipermail/buildroot/2026-March/799494.html
+            mesa = prev.mesa.overrideAttrs (old: {
+              mesonFlags = (old.mesonFlags or []) ++ [
+                "-Dlegacy-wayland=bind-wayland-display"
+              ];
+            });
+          })
+        ];
+
         modules = [ ./src/configuration.nix ];
         specialArgs = { inherit inputs; };
       };

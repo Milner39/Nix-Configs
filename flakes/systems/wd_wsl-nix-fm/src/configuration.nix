@@ -18,17 +18,6 @@ let
   };
 in
 {
-  nixpkgs.overlays = [
-    (final: prev: {
-      # https://lists.buildroot.org/pipermail/buildroot/2026-March/799494.html
-      mesa = prev.mesa.overrideAttrs (old: {
-        mesonFlags = (old.mesonFlags or []) ++ [
-          "-Dlegacy-wayland=bind-wayland-display"
-        ];
-      });
-    })
-  ];
-
   imports = [
     # For WSL
     inputs.wsl.nixosModules.default    
@@ -96,7 +85,7 @@ in
   # Hardware Acceleration
   wsl.useWindowsDriver = true;
   hardware.graphics.enable = true;
-  hardware.graphics.enable32 = true;
+  hardware.graphics.enable32Bit = true;
   hardware.graphics.package = pkgs.mesa;
   hardware.graphics.extraPackages = with pkgs; [
     libvdpau-va-gl
