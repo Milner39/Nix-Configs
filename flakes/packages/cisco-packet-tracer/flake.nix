@@ -1,11 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    cisco-packet-tracer-deb = {
-      url = "path:./CiscoPacketTracer.deb";
-      flake = false;
-    };
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
   };
 
   outputs = { self, nixpkgs, ... } @ inputs: let
@@ -14,7 +9,10 @@
 
     pname = "cisco-packet-tracer";
     version = "1.0.0";
-    CPT-deb = inputs.cisco-packet-tracer-deb;
+
+    # Check file exists so this can fail gracefully
+    CPT-deb = self + "/CiscoPacketTracer.deb";
+    CPT-deb-present = builtins.pathExists CPT-deb;
   in {
     packages = forAllSystems (system:
       let
@@ -81,8 +79,20 @@
             EOF
           '';
         };
+
+
+        CPT-stub = pkgs.writeShellScriptBin "cisco-packet-tracer" ''
+          echo "Cisco Packet Tracer is not installed." >&2
+          echo "The build could not find CiscoPacketTracer.deb, so a stub was built instead." >&2
+          echo "See flakes/packages/cisco-packet-tracer/README.md for how to add the installer." >&2
+          exit 1
+        '';
       in {
-        "${pname}" = CPT;
+        "${pname}" = if CPT-deb-present
+          then CPT
+          else builtins.warn
+            "cisco-packet-tracer: CiscoPacketTracer.deb not found - building a stub package instead. See flakes/packages/cisco-packet-tracer/README.md."
+            CPT-stub;
       }
     );
   };

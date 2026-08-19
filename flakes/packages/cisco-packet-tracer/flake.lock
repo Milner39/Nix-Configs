@@ -1,36 +1,23 @@
 {
   "nodes": {
-    "cisco-packet-tracer-deb": {
-      "flake": false,
-      "locked": {
-        "path": "./CiscoPacketTracer.deb",
-        "type": "path"
-      },
-      "original": {
-        "path": "./CiscoPacketTracer.deb",
-        "type": "path"
-      },
-      "parent": []
-    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1763835633,
-        "narHash": "sha256-HzxeGVID5MChuCPESuC0dlQL1/scDKu+MmzoVBJxulM=",
-        "owner": "NixOS",
+        "lastModified": 1787101114,
+        "narHash": "sha256-gwrPcFf/rDjHPaVflbDZ040ZDmBTRj/7+s8ZmE2SaIM=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
+        "rev": "b18a4b905f8d028dc4476412e6d6891728695379",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
+        "owner": "nixos",
+        "ref": "nixos-26.05",
         "repo": "nixpkgs",
         "type": "github"
       }
     },
     "root": {
       "inputs": {
-        "cisco-packet-tracer-deb": "cisco-packet-tracer-deb",
         "nixpkgs": "nixpkgs"
       }
     }

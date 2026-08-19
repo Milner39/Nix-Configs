@@ -1,7 +1,7 @@
 {
   inputs = {
 
-    nixpkgs.url           =  "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url           =  "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url  =  "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
@@ -46,9 +46,3 @@
     };
   };
 }
-
-/*
-  Not using the correct version of Home Manager because 25.05 does not have:
-  • `programs.oh-my-posh.configFile` and otherwise, I would not be able to use 
-    `.toml` files for configs.
-*/
