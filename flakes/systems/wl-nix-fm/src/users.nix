@@ -40,10 +40,6 @@ lib.custom.users.mkUsersData {
         initialPassword = "tmp";
       };
 
-      password = {
-        passwd-persist.enable = true;
-      };
-
       trusted = true;
     };
     # === finnm ===

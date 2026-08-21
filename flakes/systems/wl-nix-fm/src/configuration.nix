@@ -22,17 +22,7 @@ in
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
-
-    # Import modules that can be configured under the `modules` option.
-    # This is a special function that recursively builds a "tree" of options 
-    # based on the directory structure of choice.
-    # https://github.com/Milner39/nix-utils
-    (inputs.my-utils.lib.${system}.mkOptionTreeFromDir {
-      configRoot = config;
-      optionTreeName = "modules";
-      modulesDir = lib.custom.fromRoot "modules/nixos";
-      specialArgs = args;
-    })
+    (inputs.nix-modules.lib.nixosModuleTree {})
 
     (import ./gui args)
     (import ./work.nix args)
@@ -175,12 +165,6 @@ in
   # === Security ===
 
   security.polkit.enable = true;
-
-
-  modules.security.passwords.passwd-persist = {
-    enable = true;
-    users = args.usersData.passwd-persist-users;
-  };
 
   # === Security ===
 
