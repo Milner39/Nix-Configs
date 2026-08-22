@@ -82,32 +82,28 @@ in
 
   # === Bootloader ===
 
-  /*
-    The bootloader itself is set by the `raspberry-pi-3` profile, which enables
-    `boot.loader.generic-extlinux-compatible` and disables GRUB. The GPU
-    firmware chainloads U-Boot, which then reads `extlinux.conf`.
-  */
+  # Bootloader itself comes from the `raspberry-pi-3` profile.
 
-  # Old generations keep their kernel + initrd in /boot on the root partition,
-  # which adds up fast on an SD card.
+  # Old generations keep their kernel + initrd in /boot on the root partition.
   boot.loader.generic-extlinux-compatible.configurationLimit = 10;
+
+  # Loads the DTB shipped with the running kernel instead of the vendor one.
+  # MUST match the kernel choice below. See ../README.md.
+  boot.loader.generic-extlinux-compatible.useGenerationDeviceTree = lib.mkForce true;
 
   # === Bootloader ===
 
 
   # === Kernel ===
 
-  /*
-    `raspberry-pi-3` profile sets `lib.mkDefault (linuxPackagesFor linux-rpi)`.
-
-    `linux-rpi` is built from source (vendor defconfig, `raspberrypi/linux`) and
-    is in no binary cache, so taking it would mean an emulated aarch64 kernel
-    compile on every nixos-hardware bump. Mainline covers the Pi 3 B fine and
-    substitutes from cache.nixos.org.
-
-    Drop this line to go back to the vendor kernel.
-  */
+  # Mainline instead of the profile's from-source `linux-rpi`.
+  # Dropping this to go back to the vendor kernel means also dropping the
+  # `useGenerationDeviceTree` force above. See ../README.md.
   boot.kernelPackages = pkgs.linuxPackages;
+
+  # `sd-image-aarch64.nix` raises this to 7, which floods the console.
+  # Raise back to 7 to debug an early boot problem. See ../README.md.
+  boot.consoleLogLevel = 4;
 
   # === Kernel ===
 
@@ -118,34 +114,16 @@ in
   hardware.enableRedistributableFirmware = true;
 
   hardware.raspberry-pi.firmware = {
-    /*
-      Adds an activation script that repopulates the firmware partition on every
-      `nixos-rebuild switch`. Off by default. Needs `/boot/firmware` mounted,
-      see the mount options in `./filesystems.nix`.
-    */
+    # Repopulates the firmware partition on every `nixos-rebuild switch`.
+    # Needs `/boot/firmware` mounted, see `./filesystems.nix`.
     enable = true;
 
-    /*
-      REQUIRED, and off by default.
-
-      `hardware.raspberry-pi.firmware` `mkForce`s
-      `sdImage.populateFirmwareCommands`, throwing away the one
-      `sd-image-aarch64.nix` provides. Its own install script only copies
-      `u-boot.bin`, and only emits `config.txt`'s `kernel=` line, when this is
-      enabled.
-
-      Leave it off and the image gets no U-Boot and no `kernel=` line: the GPU
-      firmware looks for `kernel8.img`, finds nothing, and the board does not
-      boot.
-    */
+    # REQUIRED. Without it the image gets no U-Boot and no `config.txt`
+    # `kernel=` line, and the board silently does not boot. See ../README.md.
     uboot.enable = true;
   };
 
-  /*
-    The profile sets `console=ttyS0,115200n8`, but the Pi 3's mini-UART only
-    comes up if the firmware is told to enable it. Without this a failed boot on
-    a headless board gives no output.
-  */
+  # Serial console, to give a headless board some output on a failed boot.
   hardware.raspberry-pi.configtxt.settings.all.enable_uart = true;
 
   # === Hardware ===
