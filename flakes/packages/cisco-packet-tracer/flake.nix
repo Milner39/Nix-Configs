@@ -60,7 +60,7 @@
           src = "${CPT-appimage}/cisco-packet-tracer.AppImage";
           extraPkgs = pkgs: with pkgs; [
             libpng
-            xorg.libxkbfile
+            libxkbfile
           ];
 
           extraInstallCommands = ''

@@ -9,12 +9,16 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    my-utils = {
-      url = github:Milner39/nix-utils/release-1.0;
-      inputs.nixpkgs.follows = "nixpkgs";
+    nix-modules = {
+      url = "github:Milner39/nix-modules/release-26.05";
+      inputs.nixpkgs.follows           =  "nixpkgs";
+      inputs.nixpkgs-unstable.follows  =  "nixpkgs-unstable";
     };
 
-    cisco-packet-tracer.url = "path:../../packages/cisco-packet-tracer";
+    cisco-packet-tracer = {
+      url = "path:../../packages/cisco-packet-tracer";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   };
 

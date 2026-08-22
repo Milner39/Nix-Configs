@@ -18,16 +18,7 @@ let
 in
 {
   imports = [
-    # Import modules that can be configured under the `modules` option.
-    # This is a special function that recursively builds a "tree" of options 
-    # based on the directory structure of choice.
-    # https://github.com/Milner39/nix-utils
-    (inputs.my-utils.lib.${system}.mkOptionTreeFromDir {
-      configRoot = config;
-      optionTreeName = "modules";
-      modulesDir = lib.custom.fromRoot "modules/home-manager";
-      specialArgs = args;
-    })
+    (inputs.nix-modules.lib.homeModuleTree {})
 
     (import ./gui.nix args)
   ];
@@ -50,7 +41,7 @@ in
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "25.05"; # Please read the comment before changing.
+  home.stateVersion = "26.05"; # Please read the comment before changing.
 
   # === Home Manager ===
 
