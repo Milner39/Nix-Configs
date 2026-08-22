@@ -264,6 +264,7 @@ in
     brave
 
     # Must haves
+    usbutils
     brightnessctl
     pkgs-unstable.fastfetch
     pkgs-unstable.btop
